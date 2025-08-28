@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF            <div class="floating-elements">
+                <div class="floating-strawberry strawberry-1">🍓</div>
+                <div class="floating-strawberry strawberry-2">🍓</div>
+                <div class="floating-strawberry strawberry-3">🍓</div>
+                <div class="floating-chocolate chocolate-1">🍫</div>
+                <div class="floating-chocolate chocolate-2">🍫</div>
+            </div>   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A la Fresh - Barrio Antioquia</title>
+    <meta name="description" content="A la Fresh - Fresas frescas y deliciosas en el Barrio Antioquia, Medellín. Fresh strawberries and delicious treats. 安蒂奥基亚社区新鲜草莓店. Fraises fraîches quartier Antioquia.">
+    <meta name="keywords" content="fresas, strawberries, Barrio Antioquia, Medellín, Colombia, fresh, fresco, 草莓, fraises">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="animations.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="translations.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -18,9 +26,36 @@
                 <span>A la Fresh</span>
             </div>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Inicio</a></li>
-                <li><a href="#products" class="nav-link">Productos</a></li>
-                <li><a href="#contact" class="nav-link">Contacto</a></li>
+                <li><a href="#home" class="nav-link active" data-translate="nav_inicio">Inicio</a></li>
+                <li><a href="#products" class="nav-link" data-translate="nav_productos">Productos</a></li>
+                <li><a href="#contact" class="nav-link" data-translate="nav_contacto">Contacto</a></li>
+                <li class="language-selector">
+                    <div class="lang-dropdown">
+                        <button class="lang-current" id="currentLang">
+                            <span class="flag">🇪🇸</span>
+                            <span>ES</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-options" id="langOptions">
+                            <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">
+                                <span class="flag">🇪🇸</span>
+                                <span>Español</span>
+                            </button>
+                            <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">
+                                <span class="flag">🇺🇸</span>
+                                <span>English</span>
+                            </button>
+                            <button class="lang-btn" data-lang="zh" onclick="changeLanguage('zh')">
+                                <span class="flag">🇨🇳</span>
+                                <span>中文</span>
+                            </button>
+                            <button class="lang-btn" data-lang="fr" onclick="changeLanguage('fr')">
+                                <span class="flag">🇫🇷</span>
+                                <span>Français</span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -44,22 +79,22 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    <span class="title-line">Bienvenidos a</span>
-                    <span class="title-main">A la Fresh</span>
-                    <span class="title-subtitle">El paraíso de las fresas frescas</span>
+                    <span class="title-line" data-translate="hero_welcome">Bienvenidos a</span>
+                    <span class="title-main" data-translate="hero_title">A la Fresh</span>
+                    <span class="title-subtitle" data-translate="hero_subtitle">El paraíso de las fresas frescas</span>
                 </h1>
-                <p class="hero-description">
+                <p class="hero-description" data-translate="hero_description">
                     Donde la frescura se encuentra con la dulzura. Un lugar especial donde puedes disfrutar de las mejores fresas, 
                     combinadas con crema, chocolate, obleas y mucho más. ¡Cada bocado es una explosión de sabor!
                 </p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="scrollToSection('products')">
                         <i class="fas fa-shopping-basket"></i>
-                        Descubrir Fresas
+                        <span data-translate="hero_btn_productos">Descubrir Fresas</span>
                     </button>
                     <button class="btn btn-secondary" onclick="scrollToSection('contact')">
                         <i class="fas fa-map-marker-alt"></i>
-                        Visítanos
+                        <span data-translate="hero_btn_visitanos">Visítanos</span>
                     </button>
                 </div>
             </div>
@@ -81,8 +116,8 @@
     <section id="products" class="products">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Nuestras Deliciosas Fresas</h2>
-                <p class="section-subtitle">Frescura, dulzor y calidad en cada bocado</p>
+                <h2 class="section-title" data-translate="products_title">Nuestras Deliciosas Fresas</h2>
+                <p class="section-subtitle" data-translate="products_subtitle">Frescura, dulzor y calidad en cada bocado</p>
                 <div class="title-decoration">
                     <div class="decoration-line"></div>
                     <div class="decoration-icon">�</div>
@@ -116,11 +151,11 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        <h3>Delicias con Fresas</h3>
-                        <p>Un ambiente acogedor donde puedes disfrutar de nuestras fresas con crema, chocolate, obleas y muchas combinaciones deliciosas.</p>
+                        <h3 data-translate="product2_title">Delicias con Fresas</h3>
+                        <p data-translate="product2_description">Un ambiente acogedor donde puedes disfrutar de nuestras fresas con crema, chocolate, obleas y muchas combinaciones deliciosas.</p>
                         <div class="card-features">
-                            <span class="feature">🍫 Con Chocolate</span>
-                            <span class="feature">🥛 Con Crema</span>
+                            <span class="feature" data-translate="product2_feature1">🍫 Con Chocolate</span>
+                            <span class="feature" data-translate="product2_feature2">🥛 Con Crema</span>
                         </div>
                     </div>
                 </div>
@@ -138,11 +173,11 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        <h3>Combinaciones Especiales</h3>
-                        <p>Servicio personalizado con el cariño que nos caracteriza. Crea tu propia combinación de fresas con tus toppings favoritos.</p>
+                        <h3 data-translate="product3_title">Combinaciones Especiales</h3>
+                        <p data-translate="product3_description">Servicio personalizado con el cariño que nos caracteriza. Crea tu propia combinación de fresas con tus toppings favoritos.</p>
                         <div class="card-features">
-                            <span class="feature">⭐ Calidad Premium</span>
-                            <span class="feature">👥 Servicio Personal</span>
+                            <span class="feature" data-translate="product3_feature1">⭐ Calidad Premium</span>
+                            <span class="feature" data-translate="product3_feature2">👥 Servicio Personal</span>
                         </div>
                     </div>
                 </div>
@@ -151,23 +186,23 @@
             <div class="products-features">
                 <div class="feature-item">
                     <div class="feature-icon">🌟</div>
-                    <h4>Calidad Garantizada</h4>
-                    <p>Seleccionamos cada producto con esmero</p>
+                    <h4 data-translate="feature1_title">Calidad Garantizada</h4>
+                    <p data-translate="feature1_description">Seleccionamos cada producto con esmero</p>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">🍓</div>
-                    <h4>Frescura Garantizada</h4>
-                    <p>Seleccionamos cada fresa con esmero para ofrecerte lo mejor</p>
+                    <h4 data-translate="feature2_title">Frescura Garantizada</h4>
+                    <p data-translate="feature2_description">Seleccionamos cada fresa con esmero para ofrecerte lo mejor</p>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">🏠</div>
-                    <h4>Barrio Antioquia</h4>
-                    <p>Orgullosamente parte de la comunidad</p>
+                    <h4 data-translate="feature3_title">Barrio Antioquia</h4>
+                    <p data-translate="feature3_description">Orgullosamente parte de la comunidad</p>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">🍯</div>
-                    <h4>Dulzura Natural</h4>
-                    <p>Cada fresa viene con su dulzor natural perfecto</p>
+                    <h4 data-translate="feature4_title">Dulzura Natural</h4>
+                    <p data-translate="feature4_description">Cada fresa viene con su dulzor natural perfecto</p>
                 </div>
             </div>
         </div>
@@ -186,10 +221,10 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <h2 class="contact-title">
-                        <span class="title-accent">Encuéntranos en</span>
-                        <span class="title-main">Barrio Antioquia</span>
+                        <span class="title-accent" data-translate="contact_accent">Encuéntranos en</span>
+                        <span class="title-main" data-translate="contact_title">Barrio Antioquia</span>
                     </h2>
-                    <p class="contact-description">
+                    <p class="contact-description" data-translate="contact_description">
                         Te esperamos con los brazos abiertos en nuestro acogedor local. 
                         Ven a disfrutar de nuestras deliciosas fresas con tus combinaciones favoritas.
                     </p>
@@ -200,8 +235,8 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="detail-content">
-                                <h4>Ubicación</h4>
-                                <p>Barrio Antioquia<br>Medellín, Colombia</p>
+                                <h4 data-translate="contact_location_title">Ubicación</h4>
+                                <p data-translate="contact_location_text">Barrio Antioquia<br>Medellín, Colombia</p>
                             </div>
                         </div>
                         
@@ -210,8 +245,8 @@
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="detail-content">
-                                <h4>Horarios</h4>
-                                <p>Lunes a Sábado: 7:00 AM - 7:00 PM<br>Domingo: 8:00 AM - 5:00 PM</p>
+                                <h4 data-translate="contact_hours_title">Horarios</h4>
+                                <p data-translate="contact_hours_text">Lunes a Sábado: 7:00 AM - 7:00 PM<br>Domingo: 8:00 AM - 5:00 PM</p>
                             </div>
                         </div>
                         
@@ -220,8 +255,8 @@
                                 <i class="fas fa-phone"></i>
                             </div>
                             <div class="detail-content">
-                                <h4>Contacto</h4>
-                                <p>WhatsApp: +57 XXX XXX XXXX<br>¡Pregunta por nuestros productos!</p>
+                                <h4 data-translate="contact_phone_title">Contacto</h4>
+                                <p data-translate="contact_phone_text">WhatsApp: +57 XXX XXX XXXX<br>¡Pregunta por nuestros productos!</p>
                             </div>
                         </div>
                     </div>
@@ -270,7 +305,7 @@
                 <i class="fas fa-strawberry">🍓</i>
                 <span>A la Fresh</span>
             </div>
-            <p class="footer-text">
+            <p class="footer-text" data-translate="footer_text">
                 Con dulzor desde el Barrio Antioquia 🍓
             </p>
             <div class="footer-strawberries">

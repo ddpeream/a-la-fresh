@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollEffects();
     initializeMobileMenu();
     initializeParallax();
+    initializeLanguageDropdown();
 });
 
 // Navegación y menú
@@ -73,6 +74,56 @@ function initializeMobileMenu() {
                 navMenu.classList.remove('active');
             });
         });
+    }
+}
+
+// Language dropdown functionality
+function initializeLanguageDropdown() {
+    const langCurrent = document.getElementById('currentLang');
+    const langOptions = document.getElementById('langOptions');
+    const langDropdown = document.querySelector('.lang-dropdown');
+
+    if (langCurrent && langOptions && langDropdown) {
+        langCurrent.addEventListener('click', function(e) {
+            e.stopPropagation();
+            langDropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function() {
+            langDropdown.classList.remove('active');
+        });
+
+        // Prevent closing when clicking inside dropdown
+        langOptions.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+}
+
+// Update current language display
+function updateCurrentLanguageDisplay(lang) {
+    const currentLang = document.getElementById('currentLang');
+    if (currentLang) {
+        const flags = {
+            'es': '🇪🇸',
+            'en': '🇺🇸', 
+            'zh': '🇨🇳',
+            'fr': '🇫🇷'
+        };
+        
+        const codes = {
+            'es': 'ES',
+            'en': 'EN',
+            'zh': '中',
+            'fr': 'FR'
+        };
+        
+        currentLang.innerHTML = `
+            <span class="flag">${flags[lang]}</span>
+            <span>${codes[lang]}</span>
+            <i class="fas fa-chevron-down"></i>
+        `;
     }
 }
 
@@ -427,3 +478,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Exportar funciones para uso global
 window.scrollToSection = scrollToSection;
 window.addRippleEffect = addRippleEffect;
+window.updateCurrentLanguageDisplay = updateCurrentLanguageDisplay;

@@ -1088,6 +1088,122 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
+/* Language Selector Styles */
+.language-selector {
+    position: relative;
+}
+
+.lang-dropdown {
+    position: relative;
+}
+
+.lang-current {
+    background: transparent;
+    border: 2px solid var(--primary-strawberry);
+    border-radius: 25px;
+    color: var(--primary-strawberry);
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.lang-current:hover {
+    background: var(--primary-strawberry);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.lang-current .flag {
+    font-size: 16px;
+}
+
+.lang-current i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.lang-dropdown.active .lang-current i {
+    transform: rotate(180deg);
+}
+
+.lang-options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    min-width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.lang-dropdown.active .lang-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.lang-btn:last-child {
+    border-bottom: none;
+}
+
+.lang-btn:hover {
+    background: var(--light-pink);
+    color: var(--primary-strawberry);
+}
+
+.lang-btn.active {
+    background: var(--primary-strawberry);
+    color: white;
+}
+
+.lang-btn .flag {
+    font-size: 16px;
+}
+
+/* Responsive language selector */
+@media (max-width: 768px) {
+    .lang-current {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .lang-options {
+        right: -10px;
+        min-width: 130px;
+    }
+    
+    .lang-btn {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}
+
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
