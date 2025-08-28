@@ -1,0 +1,342 @@
+/* Estilos adicionales para preloader y efectos especiales */
+
+/* Preloader */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 50%, #ffd3a5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+}
+
+.preloader-content {
+    text-align: center;
+}
+
+.logo-animation {
+    font-family: 'Dancing Script', cursive;
+    font-size: 48px;
+    font-weight: 700;
+    color: #2d8f47;
+    margin-bottom: 30px;
+    animation: logoFloat 2s ease-in-out infinite;
+}
+
+.logo-animation i {
+    margin-right: 15px;
+    animation: leafRotate 3s linear infinite;
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes leafRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-animation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.loading-dot {
+    width: 12px;
+    height: 12px;
+    background: #2d8f47;
+    border-radius: 50%;
+    animation: loadingBounce 1.4s ease-in-out infinite both;
+}
+
+.loading-dot:nth-child(1) { animation-delay: -0.32s; }
+.loading-dot:nth-child(2) { animation-delay: -0.16s; }
+.loading-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes loadingBounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Cursor personalizado */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    background: rgba(45, 143, 71, 0.8);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s ease;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-hover {
+    transform: translate(-50%, -50%) scale(2);
+    background: rgba(79, 195, 247, 0.8);
+}
+
+/* Efecto ripple */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    animation: rippleEffect 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Animaciones especiales para fechas */
+@keyframes pawCelebration {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
+    25% { 
+        transform: scale(1.2) rotate(90deg);
+        filter: hue-rotate(90deg);
+    }
+    50% { 
+        transform: scale(1.5) rotate(180deg);
+        filter: hue-rotate(180deg);
+    }
+    75% { 
+        transform: scale(1.2) rotate(270deg);
+        filter: hue-rotate(270deg);
+    }
+}
+
+/* Efectos de Navidad */
+.christmas-snow {
+    position: fixed;
+    top: -10px;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.snowflake {
+    position: absolute;
+    color: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    animation: snowfall linear infinite;
+}
+
+@keyframes snowfall {
+    from {
+        transform: translateY(-100vh) rotate(0deg);
+    }
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Elementos iniciales ocultos para animaciones */
+.hero-text > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.hero-image {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s ease-out;
+}
+
+/* Animaciones de entrada personalizadas */
+.animate-in {
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slide-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-right {
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Estados iniciales para elementos animados */
+.product-card {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease-out;
+}
+
+.feature-item {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    transition: all 0.6s ease-out;
+}
+
+.detail-item {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease-out;
+}
+
+/* Efectos de hover mejorados para móvil */
+@media (hover: hover) {
+    .product-card:hover .product-img {
+        transform: scale(1.1) rotate(2deg);
+    }
+    
+    .feature-item:hover .feature-icon {
+        animation: iconBounce 0.6s ease-out;
+    }
+    
+    .social-link:hover {
+        animation: socialPulse 0.4s ease-out;
+    }
+}
+
+@keyframes socialPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1.1); }
+}
+
+/* Transiciones suaves para cambios de tema */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .floating-leaf,
+    .floating-paw,
+    .heart {
+        animation: none;
+    }
+}
+
+/* Modo oscuro (opcional) */
+@media (prefers-color-scheme: dark) {
+    .navbar {
+        background: rgba(33, 37, 41, 0.95);
+    }
+    
+    .nav-link {
+        color: #f8f9fa;
+    }
+    
+    .product-card {
+        background: rgba(33, 37, 41, 0.9);
+        color: #f8f9fa;
+    }
+}
+
+/* Optimizaciones de rendimiento */
+.hero-background,
+.contact-background {
+    will-change: transform;
+}
+
+.floating-elements > *,
+.floating-hearts > * {
+    will-change: transform;
+}
+
+/* Estilos para impresión */
+@media print {
+    .navbar,
+    .floating-elements,
+    .floating-hearts,
+    .scroll-indicator {
+        display: none !important;
+    }
+    
+    .hero,
+    .products,
+    .contact {
+        page-break-inside: avoid;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* Mejoras para dispositivos táctiles */
+@media (pointer: coarse) {
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-link {
+        padding: 15px 10px;
+    }
+    
+    .social-link {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* Efectos de carga progressive para imágenes */
+.hero-img,
+.product-img {
+    transition: opacity 0.3s ease;
+}
+
+.hero-img:not([src]),
+.product-img:not([src]) {
+    opacity: 0;
+}
+
+/* Animaciones de texto mejoradas */
+.typewriter {
+    overflow: hidden;
+    border-right: 2px solid #2d8f47;
+    white-space: nowrap;
+    margin: 0 auto;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #2d8f47; }
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A la Fresh - Barrio Antioquia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-strawberry">🍓</i>
+                <span>A la Fresh</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Inicio</a></li>
+                <li><a href="#products" class="nav-link">Productos</a></li>
+                <li><a href="#contact" class="nav-link">Contacto</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="floating-elements">
+                <div class="floating-strawberry strawberry-1">�</div>
+                <div class="floating-strawberry strawberry-2">�</div>
+                <div class="floating-strawberry strawberry-3">�</div>
+                <div class="floating-chocolate chocolate-1">🍫</div>
+                <div class="floating-chocolate chocolate-2">🍫</div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Bienvenidos a</span>
+                    <span class="title-main">A la Fresh</span>
+                    <span class="title-subtitle">El paraíso de las fresas frescas</span>
+                </h1>
+                <p class="hero-description">
+                    Donde la frescura se encuentra con la dulzura. Un lugar especial donde puedes disfrutar de las mejores fresas, 
+                    combinadas con crema, chocolate, obleas y mucho más. ¡Cada bocado es una explosión de sabor!
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('products')">
+                        <i class="fas fa-shopping-basket"></i>
+                        Descubrir Fresas
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('contact')">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Visítanos
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-container">
+                    <img src="assets/oficial.jpg" alt="A la Fresh - Imagen Oficial" class="hero-img">
+                    <div class="image-overlay">
+                        <div class="cute-strawberry">🍓</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nuestras Deliciosas Fresas</h2>
+                <p class="section-subtitle">Frescura, dulzor y calidad en cada bocado</p>
+                <div class="title-decoration">
+                    <div class="decoration-line"></div>
+                    <div class="decoration-icon">�</div>
+                    <div class="decoration-line"></div>
+                </div>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="card-image">
+                        <img src="assets/fresh2.jpg" alt="Productos frescos" class="product-img">
+                        <div class="card-overlay">
+                            <div class="card-icon">🍓</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Fresas Frescas Premium</h3>
+                        <p>Directamente del campo a tu mesa, con la más alta calidad y frescura. Fresas jugosas y dulces que deleitan el paladar.</p>
+                        <div class="card-features">
+                            <span class="feature">� 100% Natural</span>
+                            <span class="feature">🚚 Entrega Rápida</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <img src="assets/fresh3.jpg" alt="Ambiente del local" class="product-img">
+                        <div class="card-overlay">
+                            <div class="card-icon">🍫</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Delicias con Fresas</h3>
+                        <p>Un ambiente acogedor donde puedes disfrutar de nuestras fresas con crema, chocolate, obleas y muchas combinaciones deliciosas.</p>
+                        <div class="card-features">
+                            <span class="feature">🍫 Con Chocolate</span>
+                            <span class="feature">🥛 Con Crema</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="card-image">
+                        <div class="placeholder-image">
+                            <div class="placeholder-content">
+                                <i class="fas fa-cookie-bite"></i>
+                                <span>Aquí irían fotos de productos específicos, fresas con obleas, fresas con crema, o el área de atención al cliente</span>
+                            </div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-icon">🍪</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Combinaciones Especiales</h3>
+                        <p>Servicio personalizado con el cariño que nos caracteriza. Crea tu propia combinación de fresas con tus toppings favoritos.</p>
+                        <div class="card-features">
+                            <span class="feature">⭐ Calidad Premium</span>
+                            <span class="feature">👥 Servicio Personal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="products-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🌟</div>
+                    <h4>Calidad Garantizada</h4>
+                    <p>Seleccionamos cada producto con esmero</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🍓</div>
+                    <h4>Frescura Garantizada</h4>
+                    <p>Seleccionamos cada fresa con esmero para ofrecerte lo mejor</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏠</div>
+                    <h4>Barrio Antioquia</h4>
+                    <p>Orgullosamente parte de la comunidad</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🍯</div>
+                    <h4>Dulzura Natural</h4>
+                    <p>Cada fresa viene con su dulzor natural perfecto</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-background">
+            <div class="floating-strawberries">
+                <div class="strawberry strawberry-1">🍓</div>
+                <div class="strawberry strawberry-2">🍓</div>
+                <div class="strawberry strawberry-3">🍓</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2 class="contact-title">
+                        <span class="title-accent">Encuéntranos en</span>
+                        <span class="title-main">Barrio Antioquia</span>
+                    </h2>
+                    <p class="contact-description">
+                        Te esperamos con los brazos abiertos en nuestro acogedor local. 
+                        Ven a disfrutar de nuestras deliciosas fresas con tus combinaciones favoritas.
+                    </p>
+                    
+                    <div class="contact-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="detail-content">
+                                <h4>Ubicación</h4>
+                                <p>Barrio Antioquia<br>Medellín, Colombia</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="detail-content">
+                                <h4>Horarios</h4>
+                                <p>Lunes a Sábado: 7:00 AM - 7:00 PM<br>Domingo: 8:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="detail-content">
+                                <h4>Contacto</h4>
+                                <p>WhatsApp: +57 XXX XXX XXXX<br>¡Pregunta por nuestros productos!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Contactar por WhatsApp" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-link" title="Seguir en Instagram" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" title="Seguir en Facebook" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-image">
+                    <div class="image-stack">
+                        <div class="stack-image stack-1">
+                            <div class="placeholder-content">
+                                <i class="fas fa-store"></i>
+                                <span>Foto del frente del local o entrada principal</span>
+                            </div>
+                        </div>
+                        <div class="stack-image stack-2">
+                            <div class="placeholder-content">
+                                <i class="fas fa-users"></i>
+                                <span>Foto del equipo o clientes satisfechos</span>
+                            </div>
+                        </div>
+                        <div class="cute-elements">
+                            <div class="cute-strawberry-2">🍓</div>
+                            <div class="cute-chocolate">🍫</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-strawberry">🍓</i>
+                <span>A la Fresh</span>
+            </div>
+            <p class="footer-text">
+                Con dulzor desde el Barrio Antioquia 🍓
+            </p>
+            <div class="footer-strawberries">
+                <span class="strawberry">🍓</span>
+                <span class="strawberry">🍓</span>
+                <span class="strawberry">🍓</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
