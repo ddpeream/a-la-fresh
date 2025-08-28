@@ -62,7 +62,23 @@ const translations = {
         // Placeholders
         placeholder_product: "Aquí irían fotos de productos específicos, fresas con obleas, fresas con crema, o el área de atención al cliente",
         placeholder_store: "Foto del frente del local o entrada principal",
-        placeholder_team: "Foto del equipo o clientes satisfechos"
+        placeholder_team: "Foto del equipo o clientes satisfechos",
+        
+        // Image alts
+        hero_img_alt: "A la Fresh - Imagen Oficial",
+        product1_img_alt: "Productos frescos",
+        product2_img_alt: "Ambiente del local",
+        
+        // Social media
+        social_whatsapp: "Contactar por WhatsApp",
+        social_instagram: "Seguir en Instagram", 
+        social_facebook: "Seguir en Facebook",
+        
+        // Language names
+        lang_spanish: "Español",
+        lang_english: "English",
+        lang_chinese: "中文",
+        lang_french: "Français"
     },
     
     en: {
@@ -127,7 +143,23 @@ const translations = {
         // Placeholders
         placeholder_product: "Here would go photos of specific products, strawberries with wafers, strawberries with cream, or the customer service area",
         placeholder_store: "Photo of the store front or main entrance",
-        placeholder_team: "Photo of the team or satisfied customers"
+        placeholder_team: "Photo of the team or satisfied customers",
+        
+        // Image alts
+        hero_img_alt: "A la Fresh - Official Image",
+        product1_img_alt: "Fresh products",
+        product2_img_alt: "Store environment",
+        
+        // Social media
+        social_whatsapp: "Contact via WhatsApp",
+        social_instagram: "Follow on Instagram",
+        social_facebook: "Follow on Facebook",
+        
+        // Language names
+        lang_spanish: "Spanish",
+        lang_english: "English", 
+        lang_chinese: "Chinese",
+        lang_french: "French"
     },
     
     zh: {
@@ -192,7 +224,23 @@ const translations = {
         // Placeholders
         placeholder_product: "这里会放置特定产品的照片，草莓配威化饼，草莓配奶油，或客服区域",
         placeholder_store: "商店门面或主入口的照片",
-        placeholder_team: "团队或满意客户的照片"
+        placeholder_team: "团队或满意客户的照片",
+        
+        // Image alts
+        hero_img_alt: "新鲜草莓店 - 官方图片",
+        product1_img_alt: "新鲜产品",
+        product2_img_alt: "店铺环境",
+        
+        // Social media
+        social_whatsapp: "通过WhatsApp联系",
+        social_instagram: "在Instagram上关注",
+        social_facebook: "在Facebook上关注",
+        
+        // Language names
+        lang_spanish: "西班牙语",
+        lang_english: "英语",
+        lang_chinese: "中文",
+        lang_french: "法语"
     },
     
     fr: {
@@ -257,7 +305,23 @@ const translations = {
         // Placeholders
         placeholder_product: "Ici iraient des photos de produits spécifiques, fraises avec gaufrettes, fraises avec crème, ou l'espace service client",
         placeholder_store: "Photo de la devanture du magasin ou de l'entrée principale",
-        placeholder_team: "Photo de l'équipe ou de clients satisfaits"
+        placeholder_team: "Photo de l'équipe ou de clients satisfaits",
+        
+        // Image alts
+        hero_img_alt: "A la Fresh - Image Officielle",
+        product1_img_alt: "Produits frais",
+        product2_img_alt: "Ambiance du magasin",
+        
+        // Social media
+        social_whatsapp: "Contacter via WhatsApp",
+        social_instagram: "Suivre sur Instagram",
+        social_facebook: "Suivre sur Facebook",
+        
+        // Language names
+        lang_spanish: "Espagnol",
+        lang_english: "Anglais",
+        lang_chinese: "Chinois", 
+        lang_french: "Français"
     }
 };
 
@@ -266,14 +330,22 @@ let currentLanguage = 'es';
 
 // Function to change language
 function changeLanguage(lang) {
+    console.log(`Changing language to: ${lang}`);
     currentLanguage = lang;
-    updateContent();
+    
+    // Wait a bit for DOM to be ready, then update
+    setTimeout(() => {
+        updateContent();
+    }, 100);
     
     // Update active language button
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-    document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+    const activeBtn = document.querySelector(`[data-lang="${lang}"]`);
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+    }
     
     // Update current language display
     if (window.updateCurrentLanguageDisplay) {
@@ -293,8 +365,11 @@ function changeLanguage(lang) {
 // Function to update all content
 function updateContent() {
     const t = translations[currentLanguage];
+    console.log(`Updating content to language: ${currentLanguage}`);
+    console.log('Available translations:', Object.keys(t).length);
     
     // Update all elements with data-translate attribute
+    let translated = 0;
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (t[key]) {
@@ -303,13 +378,55 @@ function updateContent() {
             } else {
                 element.textContent = t[key];
             }
+            translated++;
+        } else {
+            console.warn(`Missing translation key: ${key}`);
+        }
+    });
+    console.log(`Translated ${translated} elements`);
+    
+    // Update alt attributes
+    document.querySelectorAll('[data-translate-alt]').forEach(element => {
+        const key = element.getAttribute('data-translate-alt');
+        if (t[key]) {
+            element.alt = t[key];
+        }
+    });
+    
+    // Update title attributes
+    document.querySelectorAll('[data-translate-title]').forEach(element => {
+        const key = element.getAttribute('data-translate-title');
+        if (t[key]) {
+            element.title = t[key];
         }
     });
 }
 
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing translations...');
+    
+    // Make changeLanguage available globally
+    window.changeLanguage = changeLanguage;
+    window.forceUpdateTranslations = updateContent;
+    
     // Get saved language preference or default to Spanish
     const savedLanguage = localStorage.getItem('preferredLanguage') || 'es';
-    changeLanguage(savedLanguage);
+    
+    // Set initial language with a slight delay to ensure all elements are loaded
+    setTimeout(() => {
+        changeLanguage(savedLanguage);
+    }, 200);
+    
+    console.log('Translation system initialized');
+});
+
+// Also try to initialize when window loads completely
+window.addEventListener('load', function() {
+    // Force update translations after everything is loaded
+    setTimeout(() => {
+        if (currentLanguage !== 'es') {
+            updateContent();
+        }
+    }, 500);
 });
