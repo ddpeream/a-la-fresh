@@ -1,6 +1,6 @@
 // Variables globales
 let currentSection = 'home';
-const sections = ['home', 'products', 'contact'];
+const sections = ['home', 'products', 'gallery', 'contact'];
 
 // Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeParallax();
     initializeLanguageDropdown();
+    initializeSectionObserver(); // Nuevo observer para secciones
+    initializeDynamicGallery(); // Inicializar galería dinámica
+    
+    // Ejecutar detección inicial de sección activa
+    setTimeout(() => {
+        updateActiveSection();
+    }, 100);
 });
 
 // Navegación y menú
@@ -48,10 +55,14 @@ function scrollToSection(sectionId) {
 // Actualizar enlace activo en navegación
 function updateActiveNavLink() {
     const navLinks = document.querySelectorAll('.nav-link');
+    console.log('Actualizando navegación para sección:', currentSection); // Debug
+    
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSection}`) {
+        const href = link.getAttribute('href');
+        if (href === `#${currentSection}`) {
             link.classList.add('active');
+            console.log('Activando enlace:', href); // Debug
         }
     });
 }
@@ -154,22 +165,30 @@ function updateNavbarOnScroll() {
 
 // Detectar sección activa durante scroll
 function updateActiveSection() {
-    const scrollY = window.scrollY + 150;
+    const scrollY = window.scrollY + 100; // Reducir offset para mejor detección
+    let foundSection = null;
     
+    // Buscar qué sección está actualmente visible
     sections.forEach(sectionId => {
         const section = document.getElementById(sectionId);
         if (section) {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
+            const sectionBottom = sectionTop + sectionHeight;
             
-            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                if (currentSection !== sectionId) {
-                    currentSection = sectionId;
-                    updateActiveNavLink();
-                }
+            // Si el scroll está dentro de esta sección
+            if (scrollY >= sectionTop - 50 && scrollY < sectionBottom - 50) {
+                foundSection = sectionId;
             }
         }
     });
+    
+    // Si encontramos una sección y es diferente a la actual
+    if (foundSection && currentSection !== foundSection) {
+        currentSection = foundSection;
+        updateActiveNavLink();
+        console.log('Sección activa:', currentSection); // Debug
+    }
 }
 
 // Animaciones al hacer scroll
@@ -470,11 +489,116 @@ function handleImageErrors() {
 document.addEventListener('DOMContentLoaded', function() {
     checkSpecialDates();
     handleImageErrors();
-    initializeGallery();
     
     // Opcional: inicializar preloader
     // initializePreloader();
 });
+
+// Dynamic Gallery functionality
+function loadEventImages() {
+    // Array con todas las imágenes de la carpeta events/
+    const eventImages = [
+        {
+            src: 'assets/events/fresh-fiest.jpg',
+            title: 'gallery_event1_title',
+            description: 'gallery_event1_desc',
+            alt: 'gallery_img1_alt'
+        },
+        {
+            src: 'assets/events/fresh-fiest1.jpg',
+            title: 'gallery_event2_title', 
+            description: 'gallery_event2_desc',
+            alt: 'gallery_img2_alt'
+        },
+        {
+            src: 'assets/events/fresh-fiest2.jpg',
+            title: 'gallery_event3_title',
+            description: 'gallery_event3_desc', 
+            alt: 'gallery_img3_alt'
+        },
+        {
+            src: 'assets/events/fresh-fiest3.jpg',
+            title: 'gallery_event4_title',
+            description: 'gallery_event4_desc',
+            alt: 'gallery_img4_alt'
+        },
+        {
+            src: 'assets/events/fresh-fiest4.jpg',
+            title: 'gallery_event5_title',
+            description: 'gallery_event5_desc',
+            alt: 'gallery_img5_alt'
+        },
+        {
+            src: 'assets/events/fresh-fiest5.jpg',
+            title: 'gallery_event6_title',
+            description: 'gallery_event6_desc',
+            alt: 'gallery_img6_alt'
+        },
+        {
+            src: 'assets/events/fresh-fiest6.jpg',
+            title: 'gallery_event7_title',
+            description: 'gallery_event7_desc',
+            alt: 'gallery_img7_alt'
+        },
+        {
+            src: 'assets/events/fresh-fiest7.jpg',
+            title: 'gallery_event8_title',
+            description: 'gallery_event8_desc',
+            alt: 'gallery_img8_alt'
+        }
+    ];
+    
+    return eventImages;
+}
+
+function renderGallery(images) {
+    const galleryTrack = document.getElementById('gallery-track');
+    const indicatorsContainer = document.getElementById('gallery-indicators');
+    
+    if (!galleryTrack || !indicatorsContainer) {
+        console.error('Gallery containers not found');
+        return;
+    }
+    
+    // Limpiar contenido existente
+    galleryTrack.innerHTML = '';
+    indicatorsContainer.innerHTML = '';
+    
+    // Generar slides dinámicamente
+    images.forEach((image, index) => {
+        // Crear slide
+        const slide = document.createElement('div');
+        slide.className = `gallery-slide ${index === 0 ? 'active' : ''}`;
+        slide.innerHTML = `
+            <img src="${image.src}" alt="${t(image.alt)}" data-translate-alt="${image.alt}">
+            <div class="slide-overlay">
+                <h3 data-translate="${image.title}">${t(image.title)}</h3>
+                <p data-translate="${image.description}">${t(image.description)}</p>
+            </div>
+        `;
+        galleryTrack.appendChild(slide);
+        
+        // Crear indicador
+        const indicator = document.createElement('button');
+        indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+        indicator.setAttribute('data-slide', index);
+        indicator.setAttribute('title', `Ver imagen ${index + 1}`);
+        indicator.setAttribute('aria-label', `Imagen ${index + 1}`);
+        indicatorsContainer.appendChild(indicator);
+    });
+    
+    console.log(`Galería renderizada con ${images.length} imágenes`);
+}
+
+function initializeDynamicGallery() {
+    const images = loadEventImages();
+    renderGallery(images);
+    
+    // Pequeña pausa para asegurar que el DOM esté listo
+    setTimeout(() => {
+        initializeGallery();
+    }, 100);
+}
 
 // Gallery functionality
 function initializeGallery() {
@@ -617,7 +741,57 @@ function initializeGallery() {
     updateGallery();
 }
 
+// Intersection Observer para mejor detección de secciones
+function initializeSectionObserver() {
+    const observerOptions = {
+        threshold: 0.3, // La sección debe estar 30% visible
+        rootMargin: '-80px 0px -20% 0px' // Ajuste para el navbar
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                if (sectionId && sections.includes(sectionId)) {
+                    currentSection = sectionId;
+                    updateActiveNavLink();
+                    console.log('Intersection Observer detectó sección:', sectionId); // Debug
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observar todas las secciones
+    sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            observer.observe(section);
+        }
+    });
+}
+
+// Función para actualizar traducciones de la galería
+function updateGalleryTranslations() {
+    const slides = document.querySelectorAll('.gallery-slide');
+    slides.forEach(slide => {
+        const img = slide.querySelector('img[data-translate-alt]');
+        const title = slide.querySelector('h3[data-translate]');
+        const desc = slide.querySelector('p[data-translate]');
+        
+        if (img && img.dataset.translateAlt) {
+            img.alt = t(img.dataset.translateAlt);
+        }
+        if (title && title.dataset.translate) {
+            title.textContent = t(title.dataset.translate);
+        }
+        if (desc && desc.dataset.translate) {
+            desc.textContent = t(desc.dataset.translate);
+        }
+    });
+}
+
 // Exportar funciones para uso global
 window.scrollToSection = scrollToSection;
 window.addRippleEffect = addRippleEffect;
 window.updateCurrentLanguageDisplay = updateCurrentLanguageDisplay;
+window.updateGalleryTranslations = updateGalleryTranslations;

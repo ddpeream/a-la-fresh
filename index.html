@@ -101,7 +101,7 @@
             </div>
             <div class="hero-image">
                 <div class="image-container">
-                    <img src="assets/oficial.jpg" alt="A la Fresh - Imagen Oficial" class="hero-img">
+                    <img src="assets/home/oficial.jpg" alt="A la Fresh - Imagen Oficial" class="hero-img">
                     <div class="image-overlay">
                         <div class="cute-strawberry">🍓</div>
                     </div>
@@ -129,7 +129,7 @@
             <div class="products-grid">
                 <div class="product-card">
                     <div class="card-image">
-                        <img src="assets/fresh10.jpg" alt="Productos frescos" class="product-img">
+                        <img src="assets/home/fresh10.jpg" alt="Productos frescos" class="product-img">
                         <div class="card-overlay">
                             <div class="card-icon">🍓</div>
                         </div>
@@ -146,7 +146,7 @@
 
                 <div class="product-card">
                     <div class="card-image">
-                        <img src="assets/fresh3.jpg" alt="Ambiente del local" class="product-img">
+                        <img src="assets/home/fresh3.jpg" alt="Ambiente del local" class="product-img">
                         <div class="card-overlay">
                             <div class="card-icon">🍫</div>
                         </div>
@@ -218,35 +218,8 @@
             </div>
             
             <div class="gallery-container">
-                <div class="gallery-track">
-                    <div class="gallery-slide active">
-                        <img src="assets/fresh-fiest.jpg" alt="Evento A la Fresh 1" data-translate-alt="gallery_img1_alt">
-                        <div class="slide-overlay">
-                            <h3 data-translate="gallery_event1_title">Celebración Especial</h3>
-                            <p data-translate="gallery_event1_desc">Momentos únicos compartiendo dulzura</p>
-                        </div>
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="assets/fresh-fiest1.jpg" alt="Evento A la Fresh 2" data-translate-alt="gallery_img2_alt">
-                        <div class="slide-overlay">
-                            <h3 data-translate="gallery_event2_title">Fiesta de Fresas</h3>
-                            <p data-translate="gallery_event2_desc">Disfrutando en comunidad</p>
-                        </div>
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="assets/fresh-fiest2.jpg" alt="Evento A la Fresh 3" data-translate-alt="gallery_img3_alt">
-                        <div class="slide-overlay">
-                            <h3 data-translate="gallery_event3_title">Momentos Dulces</h3>
-                            <p data-translate="gallery_event3_desc">Creando recuerdos especiales</p>
-                        </div>
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="assets/fresh-fiest3.jpg" alt="Evento A la Fresh 4" data-translate-alt="gallery_img4_alt">
-                        <div class="slide-overlay">
-                            <h3 data-translate="gallery_event4_title">Dulzura Compartida</h3>
-                            <p data-translate="gallery_event4_desc">Experiencias memorables</p>
-                        </div>
-                    </div>
+                <div class="gallery-track" id="gallery-track">
+                    <!-- Slides generados dinámicamente por JavaScript -->
                 </div>
                 
                 <div class="gallery-navigation">
@@ -258,11 +231,8 @@
                     </button>
                 </div>
                 
-                <div class="gallery-indicators">
-                    <button class="indicator active" data-slide="0" title="Ver imagen 1" aria-label="Imagen 1"></button>
-                    <button class="indicator" data-slide="1" title="Ver imagen 2" aria-label="Imagen 2"></button>
-                    <button class="indicator" data-slide="2" title="Ver imagen 3" aria-label="Imagen 3"></button>
-                    <button class="indicator" data-slide="3" title="Ver imagen 4" aria-label="Imagen 4"></button>
+                <div class="gallery-indicators" id="gallery-indicators">
+                    <!-- Indicadores generados dinámicamente por JavaScript -->
                 </div>
             </div>
         </div>
@@ -321,24 +291,83 @@
                         </div>
                     </div>
 
-                    <div class="social-links">
-                        <a href="#" class="social-link" title="Contactar por WhatsApp" aria-label="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="#" class="social-link" title="Seguir en Instagram" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link" title="Seguir en Facebook" aria-label="Facebook">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
+                    <!-- Sección de Redes Sociales Renovada -->
+                    <div class="social-section">
+                        <h3 class="social-title" data-translate="social_section_title">Conéctate con Nosotros</h3>
+                        <p class="social-subtitle" data-translate="social_section_subtitle">Síguenos en nuestras redes sociales o escanea los códigos QR</p>
+                        
+                        <div class="social-grid">
+                            <!-- WhatsApp -->
+                            <div class="social-card whatsapp-card">
+                                <div class="social-header">
+                                    <div class="social-icon-wrapper whatsapp">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div class="social-info">
+                                        <h4 data-translate="social_whatsapp_title">WhatsApp</h4>
+                                        <p data-translate="social_whatsapp_desc">Contáctanos directamente</p>
+                                    </div>
+                                </div>
+                                <div class="social-actions">
+                                    <div class="qr-container">
+                                        <img src="assets/home/qr-fit.jpg" alt="QR WhatsApp A la Fresh" class="social-qr" data-translate-alt="qr_whatsapp_alt">
+                                        <span class="qr-label" data-translate="qr_whatsapp_label">Escanear QR</span>
+                                    </div>
+                                    <a href="https://wa.me/message/B6EEUFZLM4T6H1" class="social-btn whatsapp-btn" target="_blank" rel="noopener" data-translate="social_whatsapp_btn">
+                                        <i class="fab fa-whatsapp"></i>
+                                        Abrir Chat
+                                    </a>
+                                </div>
+                            </div>
 
-                    <!-- QR Code para WhatsApp -->
-                    <div class="qr-section">
-                        <div class="qr-code">
-                            <img src="assets/qr-fit.jpg" alt="Código QR WhatsApp A la Fresh" class="qr-image" data-translate-alt="qr_alt">
+                            <!-- Instagram -->
+                            <div class="social-card instagram-card">
+                                <div class="social-header">
+                                    <div class="social-icon-wrapper instagram">
+                                        <i class="fab fa-instagram"></i>
+                                    </div>
+                                    <div class="social-info">
+                                        <h4 data-translate="social_instagram_title">Instagram</h4>
+                                        <p data-translate="social_instagram_desc">@alafresh_med</p>
+                                    </div>
+                                </div>
+                                <div class="social-actions">
+                                    <div class="qr-container">
+                                        <img src="assets/home/qr-instagram-fit.jpg" alt="QR Instagram A la Fresh" class="social-qr" data-translate-alt="qr_instagram_alt">
+                                        <span class="qr-label" data-translate="qr_instagram_label">Escanear QR</span>
+                                    </div>
+                                    <a href="https://www.instagram.com/alafresh_med?igsh=MTZ1NmpndHNyZjF1aw%3D%3D&utm_source=qr" class="social-btn instagram-btn" target="_blank" rel="noopener" data-translate="social_instagram_btn">
+                                        <i class="fab fa-instagram"></i>
+                                        Seguir
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Facebook -->
+                            <div class="social-card facebook-card">
+                                <div class="social-header">
+                                    <div class="social-icon-wrapper facebook">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                    <div class="social-info">
+                                        <h4 data-translate="social_facebook_title">Facebook</h4>
+                                        <p data-translate="social_facebook_desc">Próximamente</p>
+                                    </div>
+                                </div>
+                                <div class="social-actions">
+                                    <div class="qr-container coming-soon">
+                                        <div class="coming-soon-qr">
+                                            <i class="fas fa-clock"></i>
+                                            <span data-translate="social_facebook_coming">Próximamente</span>
+                                        </div>
+                                    </div>
+                                    <button class="social-btn facebook-btn disabled" disabled data-translate="social_facebook_btn">
+                                        <i class="fab fa-facebook"></i>
+                                        Muy Pronto
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <p class="qr-text" data-translate="qr_simple">Escanea para contactarnos por WhatsApp</p>
                     </div>
                 </div>
                 

@@ -99,6 +99,27 @@ const translations = {
     qr_simple: "Escanea para contactarnos por WhatsApp",
     qr_alt: "Código QR WhatsApp A la Fresh",
 
+    // Social Media Section
+    social_section_title: "Conéctate con Nosotros",
+    social_section_subtitle: "Síguenos en nuestras redes sociales o escanea los códigos QR",
+    
+    social_whatsapp_title: "WhatsApp",
+    social_whatsapp_desc: "Contáctanos directamente",
+    social_whatsapp_btn: "Abrir Chat",
+    qr_whatsapp_alt: "Código QR WhatsApp A la Fresh",
+    qr_whatsapp_label: "Escanear QR",
+    
+    social_instagram_title: "Instagram",
+    social_instagram_desc: "@alafresh_med",
+    social_instagram_btn: "Seguir",
+    qr_instagram_alt: "Código QR Instagram A la Fresh",
+    qr_instagram_label: "Escanear QR",
+    
+    social_facebook_title: "Facebook",
+    social_facebook_desc: "Próximamente",
+    social_facebook_btn: "Muy Pronto",
+    social_facebook_coming: "Próximamente",
+
     // Gallery section
     gallery_title: "Galería de Eventos",
     gallery_subtitle: "Momentos especiales y celebraciones en A la Fresh",
@@ -110,10 +131,22 @@ const translations = {
     gallery_event3_desc: "Creando recuerdos especiales",
     gallery_event4_title: "Dulzura Compartida",
     gallery_event4_desc: "Experiencias memorables",
+    gallery_event5_title: "Celebración Familiar",
+    gallery_event5_desc: "Unidos por la dulzura",
+    gallery_event6_title: "Momentos Especiales",
+    gallery_event6_desc: "Creando vínculos dulces",
+    gallery_event7_title: "Fiesta Comunitaria",
+    gallery_event7_desc: "Compartiendo alegría",
+    gallery_event8_title: "Tradición y Sabor",
+    gallery_event8_desc: "Manteniendo vivas nuestras raíces",
     gallery_img1_alt: "Evento A la Fresh - Celebración especial",
     gallery_img2_alt: "Evento A la Fresh - Fiesta de fresas",
     gallery_img3_alt: "Evento A la Fresh - Momentos dulces",
     gallery_img4_alt: "Evento A la Fresh - Dulzura compartida",
+    gallery_img5_alt: "Evento A la Fresh - Celebración familiar",
+    gallery_img6_alt: "Evento A la Fresh - Momentos especiales",
+    gallery_img7_alt: "Evento A la Fresh - Fiesta comunitaria",
+    gallery_img8_alt: "Evento A la Fresh - Tradición y sabor",
   },    en: {
         // Document
         doc_title: "A la Fresh - Antioquia Neighborhood",
@@ -213,6 +246,27 @@ const translations = {
     qr_simple: "Scan to contact us via WhatsApp",
     qr_alt: "WhatsApp QR Code A la Fresh",
 
+    // Social Media Section
+    social_section_title: "Connect With Us",
+    social_section_subtitle: "Follow us on social media or scan the QR codes",
+    
+    social_whatsapp_title: "WhatsApp",
+    social_whatsapp_desc: "Contact us directly",
+    social_whatsapp_btn: "Open Chat",
+    qr_whatsapp_alt: "A la Fresh WhatsApp QR Code",
+    qr_whatsapp_label: "Scan QR",
+    
+    social_instagram_title: "Instagram",
+    social_instagram_desc: "@alafresh_med",
+    social_instagram_btn: "Follow",
+    qr_instagram_alt: "A la Fresh Instagram QR Code",
+    qr_instagram_label: "Scan QR",
+    
+    social_facebook_title: "Facebook",
+    social_facebook_desc: "Coming Soon",
+    social_facebook_btn: "Very Soon",
+    social_facebook_coming: "Coming Soon",
+
     // Gallery section
     gallery_title: "Event Gallery",
     gallery_subtitle: "Special moments and celebrations at A la Fresh",
@@ -224,10 +278,22 @@ const translations = {
     gallery_event3_desc: "Creating special memories",
     gallery_event4_title: "Shared Sweetness",
     gallery_event4_desc: "Memorable experiences",
+    gallery_event5_title: "Family Celebration",
+    gallery_event5_desc: "United by sweetness",
+    gallery_event6_title: "Special Moments",
+    gallery_event6_desc: "Creating sweet bonds",
+    gallery_event7_title: "Community Party",
+    gallery_event7_desc: "Sharing joy together",
+    gallery_event8_title: "Tradition and Flavor",
+    gallery_event8_desc: "Keeping our roots alive",
     gallery_img1_alt: "A la Fresh Event - Special celebration",
     gallery_img2_alt: "A la Fresh Event - Strawberry party",
     gallery_img3_alt: "A la Fresh Event - Sweet moments",
     gallery_img4_alt: "A la Fresh Event - Shared sweetness",
+    gallery_img5_alt: "A la Fresh Event - Family celebration",
+    gallery_img6_alt: "A la Fresh Event - Special moments",
+    gallery_img7_alt: "A la Fresh Event - Community party",
+    gallery_img8_alt: "A la Fresh Event - Tradition and flavor",
   },    zh: {
         // Document
         doc_title: "新鲜草莓店 - 安蒂奥基亚社区",
@@ -325,6 +391,27 @@ const translations = {
     qr_simple: "扫描通过WhatsApp联系我们",
     qr_alt: "A la Fresh WhatsApp二维码",
 
+    // Social Media Section
+    social_section_title: "与我们联系",
+    social_section_subtitle: "在社交媒体上关注我们或扫描二维码",
+    
+    social_whatsapp_title: "WhatsApp",
+    social_whatsapp_desc: "直接联系我们",
+    social_whatsapp_btn: "打开聊天",
+    qr_whatsapp_alt: "A la Fresh WhatsApp二维码",
+    qr_whatsapp_label: "扫描二维码",
+    
+    social_instagram_title: "Instagram",
+    social_instagram_desc: "@alafresh_med",
+    social_instagram_btn: "关注",
+    qr_instagram_alt: "A la Fresh Instagram二维码",
+    qr_instagram_label: "扫描二维码",
+    
+    social_facebook_title: "Facebook",
+    social_facebook_desc: "即将推出",
+    social_facebook_btn: "敬请期待",
+    social_facebook_coming: "即将推出",
+
     // Gallery section
     gallery_title: "活动画廊",
     gallery_subtitle: "A la Fresh的特殊时刻和庆祝活动",
@@ -336,10 +423,22 @@ const translations = {
     gallery_event3_desc: "创造特殊回忆",
     gallery_event4_title: "共享甜蜜",
     gallery_event4_desc: "难忘的体验",
+    gallery_event5_title: "家庭庆典",
+    gallery_event5_desc: "甜蜜团聚",
+    gallery_event6_title: "特殊时刻",
+    gallery_event6_desc: "创造甜蜜纽带",
+    gallery_event7_title: "社区聚会",
+    gallery_event7_desc: "共享快乐",
+    gallery_event8_title: "传统与风味",
+    gallery_event8_desc: "保持我们的根",
     gallery_img1_alt: "A la Fresh活动 - 特别庆典",
     gallery_img2_alt: "A la Fresh活动 - 草莓派对",
     gallery_img3_alt: "A la Fresh活动 - 甜蜜时光",
     gallery_img4_alt: "A la Fresh活动 - 共享甜蜜",
+    gallery_img5_alt: "A la Fresh活动 - 家庭庆典",
+    gallery_img6_alt: "A la Fresh活动 - 特殊时刻",
+    gallery_img7_alt: "A la Fresh活动 - 社区聚会",
+    gallery_img8_alt: "A la Fresh活动 - 传统与风味",
   },    fr: {
         // Document
         doc_title: "A la Fresh - Quartier Antioquia",
@@ -439,6 +538,27 @@ const translations = {
         qr_simple: "Scanner pour nous contacter via WhatsApp",
         qr_alt: "Code QR WhatsApp A la Fresh",
 
+        // Social Media Section
+        social_section_title: "Connectez-vous avec Nous",
+        social_section_subtitle: "Suivez-nous sur les réseaux sociaux ou scannez les codes QR",
+        
+        social_whatsapp_title: "WhatsApp",
+        social_whatsapp_desc: "Contactez-nous directement",
+        social_whatsapp_btn: "Ouvrir Chat",
+        qr_whatsapp_alt: "Code QR WhatsApp A la Fresh",
+        qr_whatsapp_label: "Scanner QR",
+        
+        social_instagram_title: "Instagram",
+        social_instagram_desc: "@alafresh_med",
+        social_instagram_btn: "Suivre",
+        qr_instagram_alt: "Code QR Instagram A la Fresh",
+        qr_instagram_label: "Scanner QR",
+        
+        social_facebook_title: "Facebook",
+        social_facebook_desc: "Bientôt Disponible",
+        social_facebook_btn: "Très Bientôt",
+        social_facebook_coming: "Bientôt Disponible",
+
         // Gallery section
         gallery_title: "Galerie d'Événements",
         gallery_subtitle: "Moments spéciaux et célébrations chez A la Fresh",
@@ -450,10 +570,22 @@ const translations = {
         gallery_event3_desc: "Créer des souvenirs spéciaux",
         gallery_event4_title: "Douceur Partagée",
         gallery_event4_desc: "Expériences mémorables",
+        gallery_event5_title: "Célébration Familiale",
+        gallery_event5_desc: "Unis par la douceur",
+        gallery_event6_title: "Moments Spéciaux",
+        gallery_event6_desc: "Créer des liens doux",
+        gallery_event7_title: "Fête Communautaire",
+        gallery_event7_desc: "Partager la joie ensemble",
+        gallery_event8_title: "Tradition et Saveur",
+        gallery_event8_desc: "Garder nos racines vivantes",
         gallery_img1_alt: "Événement A la Fresh - Célébration spéciale",
         gallery_img2_alt: "Événement A la Fresh - Fête des fraises",
         gallery_img3_alt: "Événement A la Fresh - Moments doux",
         gallery_img4_alt: "Événement A la Fresh - Douceur partagée",
+        gallery_img5_alt: "Événement A la Fresh - Célébration familiale",
+        gallery_img6_alt: "Événement A la Fresh - Moments spéciaux",
+        gallery_img7_alt: "Événement A la Fresh - Fête communautaire",
+        gallery_img8_alt: "Événement A la Fresh - Tradition et saveur",
     },
 };
 
@@ -536,6 +668,8 @@ function changeLanguage(lang) {
     dispatchLangChange(lang);
     // Fallback manual hydration
     hydrateAll();
+    // Update gallery content if it exists
+    if (window.updateGalleryTranslations) window.updateGalleryTranslations();
     const langDropdown = document.querySelector('.lang-dropdown');
     if (langDropdown) langDropdown.classList.remove('active');
 }

@@ -1508,12 +1508,285 @@ html {
     .gallery-track {
         height: 280px;
     }
-    
+
     .gallery .section-header h2 {
         font-size: 1.8rem;
     }
-    
+
     .gallery .section-header p {
         font-size: 1rem;
+    }
+}
+
+/* Social Media Section Styles */
+.social-section {
+    margin-top: 50px;
+    padding: 40px 30px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.social-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.social-subtitle {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.social-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #25d366, #128c7e);
+    transition: all 0.3s ease;
+}
+
+.social-card.instagram-card::before {
+    background: linear-gradient(90deg, #e4405f, #833ab4, #fd1d1d, #fcb045);
+}
+
+.social-card.facebook-card::before {
+    background: linear-gradient(90deg, #4267B2, #365899);
+}
+
+.social-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.social-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.social-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+
+.social-icon-wrapper.whatsapp {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+}
+
+.social-icon-wrapper.instagram {
+    background: linear-gradient(135deg, #e4405f, #833ab4);
+}
+
+.social-icon-wrapper.facebook {
+    background: linear-gradient(135deg, #4267B2, #365899);
+}
+
+.social-info {
+    text-align: left;
+    flex: 1;
+}
+
+.social-info h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 5px 0;
+}
+
+.social-info p {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+    margin: 0;
+}
+
+.social-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-qr {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.social-qr:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.qr-label {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+.social-btn {
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.social-btn.whatsapp-btn {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.social-btn.whatsapp-btn:hover {
+    background: linear-gradient(135deg, #128c7e, #25d366);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.social-btn.instagram-btn {
+    background: linear-gradient(135deg, #e4405f, #833ab4);
+    color: white;
+    box-shadow: 0 4px 15px rgba(228, 64, 95, 0.3);
+}
+
+.social-btn.instagram-btn:hover {
+    background: linear-gradient(135deg, #833ab4, #e4405f);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(228, 64, 95, 0.4);
+}
+
+.social-btn.facebook-btn {
+    background: linear-gradient(135deg, #4267B2, #365899);
+    color: white;
+    box-shadow: 0 4px 15px rgba(66, 103, 178, 0.3);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.social-btn i {
+    font-size: 1.1rem;
+}
+
+/* Responsive Social Section */
+@media (max-width: 768px) {
+    .social-section {
+        margin-top: 40px;
+        padding: 30px 20px;
+    }
+    
+    .social-title {
+        font-size: 1.8rem;
+    }
+    
+    .social-subtitle {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    
+    .social-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .social-card {
+        padding: 25px 20px;
+    }
+    
+    .social-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .social-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-section {
+        padding: 25px 15px;
+    }
+    
+    .social-title {
+        font-size: 1.6rem;
+    }
+    
+    .social-card {
+        padding: 20px 15px;
+    }
+    
+    .social-header {
+        gap: 12px;
+    }
+    
+    .social-icon-wrapper {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    
+    .social-info h4 {
+        font-size: 1.2rem;
+    }
+    
+    .social-qr {
+        width: 70px;
+        height: 70px;
     }
 }
