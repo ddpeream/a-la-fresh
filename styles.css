@@ -580,8 +580,9 @@ body {
 }
 
 .card-content h3 {
-    font-size: 24px;
-    font-weight: 600;
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    font-weight: 700;
     color: #333;
     margin-bottom: 15px;
 }
@@ -658,8 +659,9 @@ body {
 }
 
 .feature-item h4 {
-    font-size: 20px;
-    font-weight: 600;
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    font-weight: 700;
     color: #333;
     margin-bottom: 10px;
 }
@@ -784,8 +786,9 @@ body {
 }
 
 .detail-content h4 {
-    font-size: 18px;
-    font-weight: 600;
+    font-family: 'Dancing Script', cursive;
+    font-size: 22px;
+    font-weight: 700;
     color: #333;
     margin-bottom: 5px;
 }
@@ -1295,7 +1298,9 @@ html {
 }
 
 .gallery .section-header h2 {
+    font-family: 'Dancing Script', cursive;
     font-size: 3rem;
+    font-weight: 700;
     color: var(--primary-strawberry);
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -1372,7 +1377,9 @@ html {
 }
 
 .slide-overlay h3 {
-    font-size: 1.8rem;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    font-weight: 700;
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
