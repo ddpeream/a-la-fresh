@@ -122,7 +122,7 @@ function updateCurrentLanguageDisplay(lang) {
         currentLang.innerHTML = `
             <span class="flag">${flags[lang]}</span>
             <span>${codes[lang]}</span>
-            <i class="fas fa-chevron-down"></i>
+            <span class="chevron">▾</span>
         `;
     }
 }
