@@ -67,7 +67,7 @@ const translations = {
             "Lunes a Sábado: 7:00 AM - 7:00 PM<br>Domingo: 8:00 AM - 5:00 PM",
         contact_phone_title: "Contacto",
         contact_phone_text:
-            "WhatsApp: +57 XXX XXX XXXX<br>¡Pregunta por nuestros productos!",
+            "WhatsApp: +57 320 7630240<br>¡Pregunta por nuestros productos!",
 
         // Footer
         footer_text: "Con dulzor desde el Barrio Antioquia 🍓",
@@ -88,14 +88,16 @@ const translations = {
         social_instagram: "Seguir en Instagram",
         social_facebook: "Seguir en Facebook",
 
-        // Language names
-        lang_spanish: "Español",
-        lang_english: "English",
-        lang_chinese: "中文",
-        lang_french: "Français",
-    },
+    // Language names
+    lang_spanish: "Español",
+    lang_english: "English",
+    lang_chinese: "中文",
+    lang_french: "Français",
 
-    en: {
+    // QR Code section
+    qr_simple: "Escanea para contactarnos por WhatsApp",
+    qr_alt: "Código QR WhatsApp A la Fresh",
+  },    en: {
         // Document
         doc_title: "A la Fresh - Antioquia Neighborhood",
         doc_description:
@@ -162,7 +164,7 @@ const translations = {
             "Monday to Saturday: 7:00 AM - 7:00 PM<br>Sunday: 8:00 AM - 5:00 PM",
         contact_phone_title: "Contact",
         contact_phone_text:
-            "WhatsApp: +57 XXX XXX XXXX<br>Ask about our products!",
+            "WhatsApp: +57 320 7630240<br>Ask about our products!",
 
         // Footer
         footer_text: "With sweetness from Antioquia Neighborhood 🍓",
@@ -183,14 +185,16 @@ const translations = {
         social_instagram: "Follow on Instagram",
         social_facebook: "Follow on Facebook",
 
-        // Language names
-        lang_spanish: "Spanish",
-        lang_english: "English",
-        lang_chinese: "Chinese",
-        lang_french: "French",
-    },
+    // Language names
+    lang_spanish: "Spanish",
+    lang_english: "English",
+    lang_chinese: "Chinese",
+    lang_french: "French",
 
-    zh: {
+    // QR Code section
+    qr_simple: "Scan to contact us via WhatsApp",
+    qr_alt: "WhatsApp QR Code A la Fresh",
+  },    zh: {
         // Document
         doc_title: "新鲜草莓店 - 安蒂奥基亚社区",
         doc_description: "新鲜草莓店 - 麦德林安蒂奥基亚社区的新鲜美味草莓。",
@@ -255,7 +259,7 @@ const translations = {
             "周一至周六：上午7:00 - 晚上7:00<br>周日：上午8:00 - 下午5:00",
         contact_phone_title: "联系方式",
         contact_phone_text:
-            "WhatsApp: +57 XXX XXX XXXX<br>询问我们的产品！",
+            "WhatsApp: +57 320 7630240<br>询问我们的产品！",
 
         // Footer
         footer_text: "来自安蒂奥基亚社区的甜蜜 🍓",
@@ -276,14 +280,16 @@ const translations = {
         social_instagram: "在Instagram上关注",
         social_facebook: "在Facebook上关注",
 
-        // Language names
-        lang_spanish: "西班牙语",
-        lang_english: "英语",
-        lang_chinese: "中文",
-        lang_french: "法语",
-    },
+    // Language names
+    lang_spanish: "西班牙语",
+    lang_english: "英语",
+    lang_chinese: "中文",
+    lang_french: "法语",
 
-    fr: {
+    // QR Code section
+    qr_simple: "扫描通过WhatsApp联系我们",
+    qr_alt: "A la Fresh WhatsApp二维码",
+  },    fr: {
         // Document
         doc_title: "A la Fresh - Quartier Antioquia",
         doc_description:
@@ -350,7 +356,7 @@ const translations = {
             "Lundi au Samedi : 7h00 - 19h00<br>Dimanche : 8h00 - 17h00",
         contact_phone_title: "Contact",
         contact_phone_text:
-            "WhatsApp: +57 XXX XXX XXXX<br>Demandez pour nos produits !",
+            "WhatsApp: +57 320 7630240<br>Demandez pour nos produits !",
 
         // Footer
         footer_text: "Avec douceur depuis le quartier Antioquia 🍓",
@@ -376,6 +382,10 @@ const translations = {
         lang_english: "Anglais",
         lang_chinese: "Chinois",
         lang_french: "Français",
+
+        // QR Code section
+        qr_simple: "Scanner pour nous contacter via WhatsApp",
+        qr_alt: "Code QR WhatsApp A la Fresh",
     },
 };
 
