@@ -1024,6 +1024,17 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .hero {
+        padding-top: 70px;
+        min-height: calc(100vh - 70px);
+    }
+
+    .title-main {
+        font-size: 52px !important;
+    }
+}
+
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
@@ -1044,6 +1055,11 @@ body {
 
     .nav-menu.active {
         left: 0;
+    }
+
+    .hero {
+        padding-top: 120px;
+        min-height: calc(100vh - 120px);
     }
 
     .hero-content {
@@ -1086,6 +1102,11 @@ body {
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding-top: 130px;
+        min-height: calc(100vh - 130px);
+    }
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
@@ -1682,7 +1703,6 @@ html {
     transition: all 0.3s ease;
     cursor: pointer;
     flex-shrink: 0;
-}
 }
 
 .social-info {
