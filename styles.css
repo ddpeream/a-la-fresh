@@ -83,7 +83,7 @@ body {
 
 .nav-link {
     text-decoration: none;
-    color: #333;
+    color: #666;
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
@@ -1070,6 +1070,12 @@ body {
         margin: 0;
         white-space: nowrap;
         font-size: 14px;
+        color: #666;
+    }
+
+    .nav-menu .nav-link:hover,
+    .nav-menu .nav-link.active {
+        color: var(--primary-strawberry);
     }
 
     .nav-menu .language-selector {
