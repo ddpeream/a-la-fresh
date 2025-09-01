@@ -9,6 +9,7 @@ const translations = {
         // Navigation
         nav_inicio: "Inicio",
         nav_productos: "Productos",
+        nav_galeria: "Galería",
         nav_contacto: "Contacto",
 
         // Hero section
@@ -64,7 +65,7 @@ const translations = {
         contact_location_text: "Barrio Antioquia<br>Medellín, Colombia",
         contact_hours_title: "Horarios",
         contact_hours_text:
-            "Lunes a Sábado: 7:00 AM - 7:00 PM<br>Domingo: 8:00 AM - 5:00 PM",
+            "Jueves a Domingo: 6:30 PM - 10:30 PM",
         contact_phone_title: "Contacto",
         contact_phone_text:
             "WhatsApp: +57 320 7630240<br>¡Pregunta por nuestros productos!",
@@ -97,6 +98,22 @@ const translations = {
     // QR Code section
     qr_simple: "Escanea para contactarnos por WhatsApp",
     qr_alt: "Código QR WhatsApp A la Fresh",
+
+    // Gallery section
+    gallery_title: "Galería de Eventos",
+    gallery_subtitle: "Momentos especiales y celebraciones en A la Fresh",
+    gallery_event1_title: "Celebración Especial",
+    gallery_event1_desc: "Momentos únicos compartiendo dulzura",
+    gallery_event2_title: "Fiesta de Fresas",
+    gallery_event2_desc: "Disfrutando en comunidad",
+    gallery_event3_title: "Momentos Dulces",
+    gallery_event3_desc: "Creando recuerdos especiales",
+    gallery_event4_title: "Dulzura Compartida",
+    gallery_event4_desc: "Experiencias memorables",
+    gallery_img1_alt: "Evento A la Fresh - Celebración especial",
+    gallery_img2_alt: "Evento A la Fresh - Fiesta de fresas",
+    gallery_img3_alt: "Evento A la Fresh - Momentos dulces",
+    gallery_img4_alt: "Evento A la Fresh - Dulzura compartida",
   },    en: {
         // Document
         doc_title: "A la Fresh - Antioquia Neighborhood",
@@ -106,6 +123,7 @@ const translations = {
         // Navigation
         nav_inicio: "Home",
         nav_productos: "Products",
+        nav_galeria: "Gallery",
         nav_contacto: "Contact",
 
         // Hero section
@@ -161,7 +179,7 @@ const translations = {
         contact_location_text: "Antioquia Neighborhood<br>Medellín, Colombia",
         contact_hours_title: "Hours",
         contact_hours_text:
-            "Monday to Saturday: 7:00 AM - 7:00 PM<br>Sunday: 8:00 AM - 5:00 PM",
+            "Thursday to Sunday: 6:30 PM - 10:30 PM",
         contact_phone_title: "Contact",
         contact_phone_text:
             "WhatsApp: +57 320 7630240<br>Ask about our products!",
@@ -194,6 +212,22 @@ const translations = {
     // QR Code section
     qr_simple: "Scan to contact us via WhatsApp",
     qr_alt: "WhatsApp QR Code A la Fresh",
+
+    // Gallery section
+    gallery_title: "Event Gallery",
+    gallery_subtitle: "Special moments and celebrations at A la Fresh",
+    gallery_event1_title: "Special Celebration",
+    gallery_event1_desc: "Unique moments sharing sweetness",
+    gallery_event2_title: "Strawberry Party",
+    gallery_event2_desc: "Enjoying together as a community",
+    gallery_event3_title: "Sweet Moments",
+    gallery_event3_desc: "Creating special memories",
+    gallery_event4_title: "Shared Sweetness",
+    gallery_event4_desc: "Memorable experiences",
+    gallery_img1_alt: "A la Fresh Event - Special celebration",
+    gallery_img2_alt: "A la Fresh Event - Strawberry party",
+    gallery_img3_alt: "A la Fresh Event - Sweet moments",
+    gallery_img4_alt: "A la Fresh Event - Shared sweetness",
   },    zh: {
         // Document
         doc_title: "新鲜草莓店 - 安蒂奥基亚社区",
@@ -202,6 +236,7 @@ const translations = {
         // Navigation
         nav_inicio: "首页",
         nav_productos: "产品",
+        nav_galeria: "画廊",
         nav_contacto: "联系我们",
 
         // Hero section
@@ -256,7 +291,7 @@ const translations = {
         contact_location_text: "安蒂奥基亚社区<br>麦德林，哥伦比亚",
         contact_hours_title: "营业时间",
         contact_hours_text:
-            "周一至周六：上午7:00 - 晚上7:00<br>周日：上午8:00 - 下午5:00",
+            "周四至周日：下午6:30 - 晚上10:30",
         contact_phone_title: "联系方式",
         contact_phone_text:
             "WhatsApp: +57 320 7630240<br>询问我们的产品！",
@@ -289,6 +324,22 @@ const translations = {
     // QR Code section
     qr_simple: "扫描通过WhatsApp联系我们",
     qr_alt: "A la Fresh WhatsApp二维码",
+
+    // Gallery section
+    gallery_title: "活动画廊",
+    gallery_subtitle: "A la Fresh的特殊时刻和庆祝活动",
+    gallery_event1_title: "特别庆典",
+    gallery_event1_desc: "分享甜蜜的独特时刻",
+    gallery_event2_title: "草莓派对",
+    gallery_event2_desc: "社区共享欢乐",
+    gallery_event3_title: "甜蜜时光",
+    gallery_event3_desc: "创造特殊回忆",
+    gallery_event4_title: "共享甜蜜",
+    gallery_event4_desc: "难忘的体验",
+    gallery_img1_alt: "A la Fresh活动 - 特别庆典",
+    gallery_img2_alt: "A la Fresh活动 - 草莓派对",
+    gallery_img3_alt: "A la Fresh活动 - 甜蜜时光",
+    gallery_img4_alt: "A la Fresh活动 - 共享甜蜜",
   },    fr: {
         // Document
         doc_title: "A la Fresh - Quartier Antioquia",
@@ -298,6 +349,7 @@ const translations = {
         // Navigation
         nav_inicio: "Accueil",
         nav_productos: "Produits",
+        nav_galeria: "Galerie",
         nav_contacto: "Contact",
 
         // Hero section
@@ -353,7 +405,7 @@ const translations = {
         contact_location_text: "Quartier Antioquia<br>Medellín, Colombie",
         contact_hours_title: "Horaires",
         contact_hours_text:
-            "Lundi au Samedi : 7h00 - 19h00<br>Dimanche : 8h00 - 17h00",
+            "Jeudi au Dimanche : 18h30 - 22h30",
         contact_phone_title: "Contact",
         contact_phone_text:
             "WhatsApp: +57 320 7630240<br>Demandez pour nos produits !",
@@ -386,6 +438,22 @@ const translations = {
         // QR Code section
         qr_simple: "Scanner pour nous contacter via WhatsApp",
         qr_alt: "Code QR WhatsApp A la Fresh",
+
+        // Gallery section
+        gallery_title: "Galerie d'Événements",
+        gallery_subtitle: "Moments spéciaux et célébrations chez A la Fresh",
+        gallery_event1_title: "Célébration Spéciale",
+        gallery_event1_desc: "Moments uniques partageant la douceur",
+        gallery_event2_title: "Fête des Fraises",
+        gallery_event2_desc: "Profiter ensemble en communauté",
+        gallery_event3_title: "Moments Doux",
+        gallery_event3_desc: "Créer des souvenirs spéciaux",
+        gallery_event4_title: "Douceur Partagée",
+        gallery_event4_desc: "Expériences mémorables",
+        gallery_img1_alt: "Événement A la Fresh - Célébration spéciale",
+        gallery_img2_alt: "Événement A la Fresh - Fête des fraises",
+        gallery_img3_alt: "Événement A la Fresh - Moments doux",
+        gallery_img4_alt: "Événement A la Fresh - Douceur partagée",
     },
 };
 

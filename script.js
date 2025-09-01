@@ -470,10 +470,152 @@ function handleImageErrors() {
 document.addEventListener('DOMContentLoaded', function() {
     checkSpecialDates();
     handleImageErrors();
+    initializeGallery();
     
     // Opcional: inicializar preloader
     // initializePreloader();
 });
+
+// Gallery functionality
+function initializeGallery() {
+    const galleryTrack = document.querySelector('.gallery-track');
+    const slides = document.querySelectorAll('.gallery-slide');
+    const prevBtn = document.querySelector('.gallery-prev');
+    const nextBtn = document.querySelector('.gallery-next');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    let currentSlide = 0;
+    let isAnimating = false;
+    
+    // Auto-slide timer
+    let autoSlideTimer;
+    const autoSlideInterval = 5000; // 5 seconds
+    
+    function updateGallery() {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        // Update slides
+        slides.forEach((slide, index) => {
+            slide.classList.remove('active');
+            if (index === currentSlide) {
+                slide.classList.add('active');
+            }
+        });
+        
+        // Update track position
+        if (galleryTrack) {
+            galleryTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+        
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+            indicator.classList.remove('active');
+            if (index === currentSlide) {
+                indicator.classList.add('active');
+            }
+        });
+        
+        // Reset animation flag after transition
+        setTimeout(() => {
+            isAnimating = false;
+        }, 600);
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateGallery();
+        resetAutoSlide();
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateGallery();
+        resetAutoSlide();
+    }
+    
+    function goToSlide(index) {
+        currentSlide = index;
+        updateGallery();
+        resetAutoSlide();
+    }
+    
+    function startAutoSlide() {
+        autoSlideTimer = setInterval(nextSlide, autoSlideInterval);
+    }
+    
+    function stopAutoSlide() {
+        clearInterval(autoSlideTimer);
+    }
+    
+    function resetAutoSlide() {
+        stopAutoSlide();
+        startAutoSlide();
+    }
+    
+    // Event listeners
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+    }
+    
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => goToSlide(index));
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+        }
+    });
+    
+    // Touch/swipe support
+    let startX = 0;
+    let endX = 0;
+    
+    if (galleryTrack) {
+        galleryTrack.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            stopAutoSlide();
+        });
+        
+        galleryTrack.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const difference = startX - endX;
+            
+            if (Math.abs(difference) > 50) { // Minimum swipe distance
+                if (difference > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            } else {
+                resetAutoSlide();
+            }
+        });
+    }
+    
+    // Pause auto-slide on hover
+    const galleryContainer = document.querySelector('.gallery-container');
+    if (galleryContainer) {
+        galleryContainer.addEventListener('mouseenter', stopAutoSlide);
+        galleryContainer.addEventListener('mouseleave', startAutoSlide);
+    }
+    
+    // Initialize auto-slide
+    if (slides.length > 1) {
+        startAutoSlide();
+    }
+    
+    // Initialize first slide
+    updateGallery();
+}
 
 // Exportar funciones para uso global
 window.scrollToSection = scrollToSection;
