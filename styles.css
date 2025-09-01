@@ -1587,19 +1587,18 @@ html {
 }
 
 .social-info h4 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #333;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-strawberry);
     margin-bottom: 5px;
 }
 
 .social-info p {
-    font-family: 'Poppins', sans-serif;
     font-size: 1rem;
-    font-weight: 400;
     color: #666;
     margin: 0;
+    font-weight: 400;
 }
 
 .social-actions {
@@ -1624,8 +1623,8 @@ html {
 }
 
 .instagram-card .social-qr {
-    width: 130px;
-    height: 130px;
+    width: 150px;
+    height: 150px;
 }
 
 .social-qr:hover {
