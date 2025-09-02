@@ -161,12 +161,6 @@ function updateNavbarOnScroll() {
         navbar.style.backdropFilter = 'blur(10px)';
         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
     }
-    
-    // Asegurar que los colores de los enlaces se mantengan
-    const navLinks = document.querySelectorAll('.nav-link:not(.active)');
-    navLinks.forEach(link => {
-        link.style.color = '#666';
-    });
 }
 
 // Detectar sección activa durante scroll
