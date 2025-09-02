@@ -47,6 +47,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: visible; /* do not clip dropdown */
 }
 
 .logo {
@@ -83,11 +84,18 @@ body {
 
 .nav-link {
     text-decoration: none;
-    color: #333;
+    color: #555; /* gris más visible para no seleccionadas */
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
     padding: 10px 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    opacity: 1; /* asegurar visibilidad */
+}
+
+/* forzar gris en no seleccionadas en todas las vistas */
+.nav-link:not(.active) {
+    color: #555;
 }
 
 .nav-link:hover,
@@ -865,6 +873,10 @@ body {
 
 /* Responsive QR */
 @media (max-width: 768px) {
+    .nav-container {
+        gap: 12px;
+        padding: 0 24px; /* más espacio a los lados */
+    }
     .qr-section {
         margin-top: 20px;
         gap: 10px;
@@ -1027,26 +1039,77 @@ body {
     }
 
     .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background-color: white;
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 20px 0;
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* todas en una sola línea */
+    gap: 10px;
+    background-color: #ffffff;
+    width: 100%;
+    justify-content: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.08);
+    padding: 10px max(12px, env(safe-area-inset-right)) 12px max(12px, env(safe-area-inset-left));
+    overflow-x: auto; /* evita recorte horizontal */
+    overflow-y: visible; /* permite que el dropdown se muestre fuera del alto del menú */
+    box-sizing: border-box; /* respeta padding para ancho */
     }
 
     .nav-menu.active {
         left: 0;
     }
 
-    .hero-content {
-        grid-template-columns: 1fr;
+    /* Links horizontales, sin fondo; no seleccionadas en gris */
+    .nav-link {
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        color: #666; /* gris más visible para no seleccionadas */
+        font-size: 13px;
+        white-space: nowrap; /* evita salto de línea */
+    }
+
+    .nav-link:not(.active):hover {
+        color: #555;
+    }
+
+    .nav-link.active {
+        background: transparent;
+        color: var(--primary-strawberry);
+        border-color: transparent;
+    }
+
+    /* Evitar que el último elemento (idioma) quede pegado al borde */
+    .nav-menu > li:last-child {
+        margin-right: 8px;
+        flex: 0 0 auto;
+    }
+
+    /* Evitar que el selector de idioma se corte y acomodarlo antes del menú */
+    .language-selector {
+        order: 2;
+        margin-right: 12px; /* separar del borde derecho */
+        flex: 0 0 auto;
+    }
+    .hamburger {
+        order: 3;
+        margin-left: 8px;
+    }
+    .lang-current {
+        white-space: nowrap;
+        padding: 6px 10px;
+        font-size: 12px;
+        transition: transform 0.3s ease;
         text-align: center;
-        gap: 40px;
+    gap: 6px;
+    }
+
+    /* Prevent hero title from being hidden under fixed navbar on mobile */
+    .hero {
+        padding-top: 120px;
     }
 
     .title-main {
@@ -1147,6 +1210,7 @@ body {
 /* Language Selector Styles */
 .language-selector {
     position: relative;
+    z-index: 2001; /* keep above other nav items */
 }
 
 .lang-dropdown {
@@ -1182,7 +1246,6 @@ body {
     font-size: 12px;
     transition: transform 0.3s ease;
 }
-
 .lang-dropdown.active .lang-current i {
     transform: rotate(180deg);
 }
@@ -1199,7 +1262,7 @@ body {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: 3000; /* ensure it overlays page content */
     overflow: hidden;
 }
 
@@ -1257,6 +1320,21 @@ body {
     .lang-btn {
         padding: 10px 12px;
         font-size: 12px;
+    }
+}
+
+/* Extra small screens: hide flag and chevron to save width */
+@media (max-width: 480px) {
+    .lang-current .flag,
+    .lang-current i,
+    .lang-current .chevron {
+        display: none;
+    }
+    .lang-options {
+        position: fixed; /* escape any parent overflow */
+        top: 70px; /* just below navbar */
+        right: 10px;
+        min-width: 140px;
     }
 }
 
@@ -1536,14 +1614,12 @@ html {
     border-radius: 20px;
     padding: 30px 25px;
     transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    border: none;
+    backdrop-filter: none;
 }
 
 .social-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-6px);
 }
 
 .social-header {
@@ -1595,10 +1671,11 @@ html {
 }
 
 .social-info p {
+    font-family: 'Poppins', sans-serif;
     font-size: 1rem;
+    font-weight: 400;
     color: #666;
     margin: 0;
-    font-weight: 400;
 }
 
 .social-actions {
@@ -1614,17 +1691,23 @@ html {
 }
 
 .social-qr {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     border-radius: 12px;
-    border: 3px solid #fff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+    box-shadow: none;
     transition: all 0.3s ease;
 }
 
-.instagram-card .social-qr {
+.social-qr--lg {
     width: 150px;
     height: 150px;
+}
+
+.instagram-card .social-qr {
+    /* Default larger size for Instagram when not explicitly set to --lg */
+    width: 130px;
+    height: 130px;
 }
 
 .social-qr:hover {
@@ -1635,7 +1718,7 @@ html {
 .qr-label {
     display: block;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: #666;
     margin-top: 8px;
@@ -1676,72 +1759,9 @@ html {
     cursor: pointer;
     flex-shrink: 0;
 }
+/* Removed stray closing brace */
 
-
-.social-info {
-    text-align: left;
-    flex: 1;
-}
-
-.social-info h4 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin: 0 0 5px 0;
-}
-
-.social-info p {
-    font-size: 0.95rem;
-    color: #7f8c8d;
-    margin: 0;
-}
-
-.social-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    justify-content: space-between;
-}
-
-.qr-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.social-qr {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.social-qr:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.qr-label {
-    font-size: 0.8rem;
-    color: #7f8c8d;
-    font-weight: 500;
-}
-
-.social-btn {
-    padding: 12px 24px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+/* Removed duplicate conflicting social styles block to respect unified styles above */
 
 .social-btn.whatsapp-btn {
     background: linear-gradient(135deg, #25d366, #128c7e);
@@ -1846,5 +1866,21 @@ html {
     .social-qr {
         width: 70px;
         height: 70px;
+    }
+}
+
+/* Ultra small phones */
+@media (max-width: 360px) {
+    .nav-menu {
+        gap: 6px;
+        padding: 8px max(10px, env(safe-area-inset-right)) 10px max(10px, env(safe-area-inset-left));
+    }
+    .nav-link {
+        font-size: 11px;
+        padding: 4px 6px;
+    }
+    .lang-current {
+        font-size: 11px;
+        padding: 4px 8px;
     }
 }

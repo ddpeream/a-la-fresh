@@ -120,18 +120,14 @@ function updateCurrentLanguageDisplay(lang) {
             'es': '🇪🇸',
             'en': '🇺🇸', 
             'zh': '🇨🇳',
-            'fr': '🇫🇷',
-            'ar': '🇸🇦',
-            'ar-eg': '🇪🇬'
+            'fr': '🇫🇷'
         };
         
         const codes = {
             'es': 'ES',
             'en': 'EN',
             'zh': '中',
-            'fr': 'FR',
-            'ar': 'AR',
-            'ar-eg': 'EG'
+            'fr': 'FR'
         };
         
         currentLang.innerHTML = `
