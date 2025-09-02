@@ -603,6 +603,11 @@ function updateMetaForLang(lang) {
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc && d.doc_description) metaDesc.setAttribute('content', d.doc_description);
     document.documentElement.setAttribute('lang', lang);
+    // Set text direction for RTL languages (Arabic and variants)
+    try {
+        const isRTL = /^ar(\b|[-_])/i.test(lang);
+        document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    } catch {}
 }
 
 function dispatchLangChange(lang) {
@@ -743,4 +748,283 @@ window.addEventListener('DOMContentLoaded', () => {
             if (lang) changeLanguage(lang);
         }
     });
+});
+
+// Extend translations with Arabic (ar) and Egyptian Arabic (ar-eg)
+Object.assign(translations, {
+    ar: {
+        // Document
+        doc_title: "A la Fresh - حي أنتيوكيا",
+        doc_description: "A la Fresh - فراولة طازجة ولذيذة في حي أنتيوكيا، ميديلين.",
+
+        // Navigation
+        nav_inicio: "الرئيسية",
+        nav_productos: "المنتجات",
+        nav_galeria: "المعرض",
+        nav_contacto: "تواصل",
+
+        // Hero section
+        hero_welcome: "مرحبًا بكم في",
+        hero_title: "A la Fresh",
+        hero_subtitle: "الطزاجة والحلاوة في حي أنتيوكيا",
+        hero_description:
+            "اكتشفوا المذاق الأصيل لفراولتنا الطازجة، نختارها بحب لنمنحكم أفضل تجربة. ركن مميز تلتقي فيه التقاليد بالجودة.",
+        hero_btn_productos: "عرض المنتجات",
+        hero_btn_visitanos: "زورونا",
+
+        // Products section
+        products_title: "فراولتنا اللذيذة",
+        products_subtitle: "طزاجة وحلاوة وجودة في كل لقمة",
+
+        // Product cards
+        product1_title: "فراولة طازجة بريميوم",
+        product1_description:
+            "من الحقل إلى مائدتكم مباشرة بأعلى جودة وطزاجة. فراولة عصيرية وحلوة تبهج المذاق.",
+        product1_feature1: "%100 طبيعي",
+        product1_feature2: "🚚 توصيل سريع",
+
+        product2_title: "حلويات الفراولة",
+        product2_description:
+            "أجواء دافئة للاستمتاع بالفراولة مع القشطة والشوكولاتة والويفر والعديد من التركيبات.",
+        product2_feature1: "🍫 مع شوكولاتة",
+        product2_feature2: "🥛 مع قشطة",
+
+        product3_title: "تركيبات خاصة",
+        product3_description:
+            "خدمة شخصية بعناية تميزنا. اصنعوا تركيبتكم الخاصة من الفراولة مع الإضافات المفضلة لديكم.",
+        product3_feature1: "⭐ جودة بريميوم",
+        product3_feature2: "👥 خدمة شخصية",
+
+        // Features
+        feature1_title: "جودة مضمونة",
+        feature1_description: "نختار كل منتج بعناية",
+        feature2_title: "طزاجة مضمونة",
+        feature2_description: "ننتقي كل حبة فراولة بعناية لنقدم لكم الأفضل",
+        feature3_title: "حي أنتيوكيا",
+        feature3_description: "فخورون بأننا جزء من المجتمع",
+        feature4_title: "حلاوة طبيعية",
+        feature4_description: "كل حبة فراولة بطعمها الحلو الطبيعي المثالي",
+
+        // Contact section
+        contact_accent: "اعثروا علينا في",
+        contact_title: "حي أنتيوكيا",
+        contact_description:
+            "نرحب بكم بأذرع مفتوحة في مكاننا الدافئ. تعالوا واستمتعوا بفراولتنا اللذيذة مع تركيباتكم المفضلة.",
+
+        contact_location_title: "الموقع",
+        contact_location_text: "حي أنتيوكيا<br>ميديلين، كولومبيا",
+        contact_hours_title: "المواعيد",
+        contact_hours_text: "الخميس إلى الأحد: 6:30 م - 10:30 م",
+        contact_phone_title: "التواصل",
+        contact_phone_text: "واتساب: +57 320 7630240<br>اسأل عن منتجاتنا!",
+
+        // Footer
+        footer_text: "مع الحلاوة من حي أنتيوكيا 🍓",
+
+        // Image alts
+        hero_img_alt: "A la Fresh - صورة رسمية",
+        product1_img_alt: "منتجات طازجة",
+        product2_img_alt: "أجواء المحل",
+
+        // Social media
+        social_whatsapp: "التواصل عبر واتساب",
+        social_instagram: "تابعونا على إنستغرام",
+        social_facebook: "تابعونا على فيسبوك",
+
+        // Language names
+        lang_spanish: "الإسبانية",
+        lang_english: "الإنجليزية",
+        lang_chinese: "الصينية",
+        lang_french: "الفرنسية",
+        lang_arabic: "العربية",
+        lang_egyptian: "العربية المصرية",
+
+        // QR Code section
+        qr_simple: "امسح للتواصل معنا عبر واتساب",
+        qr_alt: "رمز QR واتساب A la Fresh",
+
+        // Social Media Section
+        social_section_title: "تواصلوا معنا",
+        social_section_subtitle: "تابعونا على الشبكات الاجتماعية أو امسحوا رموز QR",
+
+        social_whatsapp_title: "واتساب",
+        social_whatsapp_desc: "تواصل مباشر",
+        social_whatsapp_btn: "افتح المحادثة",
+        qr_whatsapp_alt: "رمز QR واتساب A la Fresh",
+        qr_whatsapp_label: "امسح QR",
+
+        social_instagram_title: "إنستغرام",
+        social_instagram_desc: "@alafresh_med",
+        social_instagram_btn: "متابعة",
+        qr_instagram_alt: "رمز QR إنستغرام A la Fresh",
+        qr_instagram_label: "امسح QR",
+
+        social_facebook_title: "فيسبوك",
+        social_facebook_desc: "قريبًا",
+        social_facebook_btn: "قريبًا جدًا",
+        social_facebook_coming: "قريبًا",
+
+        // Gallery section
+        gallery_title: "معرض الفعاليات",
+        gallery_subtitle: "لحظات خاصة واحتفالات في A la Fresh",
+        gallery_event1_title: "احتفال خاص",
+        gallery_event1_desc: "لحظات فريدة نتشارك فيها الحلاوة",
+        gallery_event2_title: "حفلة الفراولة",
+        gallery_event2_desc: "نستمتع معًا كمجتمع",
+        gallery_event3_title: "لحظات حلوة",
+        gallery_event3_desc: "نصنع ذكريات مميزة",
+        gallery_event4_title: "حلاوة مشتركة",
+        gallery_event4_desc: "تجارب لا تُنسى",
+        gallery_event5_title: "احتفال عائلي",
+        gallery_event5_desc: "متحدون بالحلاوة",
+        gallery_event6_title: "لحظات مميزة",
+        gallery_event6_desc: "نصنع روابط حلوة",
+        gallery_event7_title: "حفلة المجتمع",
+        gallery_event7_desc: "نشارك الفرح معًا",
+        gallery_event8_title: "التقاليد والنكهة",
+        gallery_event8_desc: "نُبقي جذورنا حيّة",
+        gallery_img1_alt: "فعالية A la Fresh - احتفال خاص",
+        gallery_img2_alt: "فعالية A la Fresh - حفلة فراولة",
+        gallery_img3_alt: "فعالية A la Fresh - لحظات حلوة",
+        gallery_img4_alt: "فعالية A la Fresh - حلاوة مشتركة",
+        gallery_img5_alt: "فعالية A la Fresh - احتفال عائلي",
+        gallery_img6_alt: "فعالية A la Fresh - لحظات مميزة",
+        gallery_img7_alt: "فعالية A la Fresh - حفلة المجتمع",
+        gallery_img8_alt: "فعالية A la Fresh - التقاليد والنكهة",
+    },
+    "ar-eg": {
+        // Document
+        doc_title: "A la Fresh - حي أنتيوكيا",
+        doc_description: "A la Fresh - فراولة طازة ولذيذة في حي أنتيوكيا، ميديلين.",
+
+        // Navigation
+        nav_inicio: "الصفحة الرئيسية",
+        nav_productos: "المنتجات",
+        nav_galeria: "المعرض",
+        nav_contacto: "تواصل",
+
+        // Hero section
+        hero_welcome: "أهلاً بيكم في",
+        hero_title: "A la Fresh",
+        hero_subtitle: "الطزاجة والحلاوة في حي أنتيوكيا",
+        hero_description:
+            "اكتشفوا الطعم الأصيل لفراولتنا الطازة، مختارة بحب عشان نديكم أحسن تجربة. مكان خاص بتتقابل فيه التقاليد مع الجودة.",
+        hero_btn_productos: "شوف المنتجات",
+        hero_btn_visitanos: "شرفونا",
+
+        // Products section
+        products_title: "أحلى فراولة",
+        products_subtitle: "طزاجة وحلاوة وجودة في كل قضمة",
+
+        // Product cards
+        product1_title: "فراولة طازة بريميوم",
+        product1_description:
+            "من الأرض على سفرتك على طول، بأعلى جودة وطزاجة. فراولة عصيرية وحلوة تفرّح القلب.",
+        product1_feature1: "%100 طبيعي",
+        product1_feature2: "🚚 توصيل سريع",
+
+        product2_title: "حلويات بالفراولة",
+        product2_description:
+            "جو دافي تستمتع فيه بالفراولة مع القشطة والشوكولاتة والويفر وخلطات كتير لذيذة.",
+        product2_feature1: "🍫 مع شوكولاتة",
+        product2_feature2: "🥛 مع قشطة",
+
+        product3_title: "تركيبات مميزة",
+        product3_description:
+            "خدمة شخصية بذوق عالي. اعمل تركيبتك الخاصة من الفراولة مع أحلى الإضافات.",
+        product3_feature1: "⭐ جودة بريميوم",
+        product3_feature2: "👥 خدمة شخصية",
+
+        // Features
+        feature1_title: "جودة مضمونة",
+        feature1_description: "بنختار كل منتج بعناية",
+        feature2_title: "طزاجة مضمونة",
+        feature2_description: "بنختار كل حبة فراولة بعناية عشان نديكم الأفضل",
+        feature3_title: "حي أنتيوكيا",
+        feature3_description: "فخورين إننا جزء من المجتمع",
+        feature4_title: "حلاوة طبيعية",
+        feature4_description: "كل حبة فراولة بطعمها الحلو الطبيعي",
+
+        // Contact section
+        contact_accent: "تلاقونا في",
+        contact_title: "حي أنتيوكيا",
+        contact_description:
+            "مستنيينكم في مكاننا الدافي. تعالوا دوقوا أحلى فراولة مع تركيباتكم المفضلة.",
+
+        contact_location_title: "العنوان",
+        contact_location_text: "حي أنتيوكيا<br>ميديلين، كولومبيا",
+        contact_hours_title: "المواعيد",
+        contact_hours_text: "من الخميس للأحد: 6:30 م - 10:30 م",
+        contact_phone_title: "التواصل",
+        contact_phone_text: "واتساب: +57 320 7630240<br>اسأل عن منتجاتنا!",
+
+        // Footer
+        footer_text: "حلاوة من حي أنتيوكيا 🍓",
+
+        // Social media
+        social_whatsapp: "اتواصل عبر واتساب",
+        social_instagram: "تابعنا على إنستغرام",
+        social_facebook: "تابعنا على فيسبوك",
+
+        // Language names
+        lang_spanish: "الإسبانية",
+        lang_english: "الإنجليزية",
+        lang_chinese: "الصينية",
+        lang_french: "الفرنسية",
+        lang_arabic: "العربية",
+        lang_egyptian: "العربية المصرية",
+
+        // QR Code section
+        qr_simple: "امسح وتواصل معانا على واتساب",
+        qr_alt: "رمز QR واتساب A la Fresh",
+
+        // Social Media Section
+        social_section_title: "اتواصلوا معانا",
+        social_section_subtitle: "تابعونا أو امسحوا أكواد QR",
+
+        social_whatsapp_title: "واتساب",
+        social_whatsapp_desc: "تواصل مباشر",
+        social_whatsapp_btn: "افتح المحادثة",
+        qr_whatsapp_alt: "رمز QR واتساب A la Fresh",
+        qr_whatsapp_label: "امسح QR",
+
+        social_instagram_title: "إنستغرام",
+        social_instagram_desc: "@alafresh_med",
+        social_instagram_btn: "متابعة",
+        qr_instagram_alt: "رمز QR إنستغرام A la Fresh",
+        qr_instagram_label: "امسح QR",
+
+        social_facebook_title: "فيسبوك",
+        social_facebook_desc: "قريبًا",
+        social_facebook_btn: "قريبًا جدًا",
+        social_facebook_coming: "قريبًا",
+
+        // Gallery section
+        gallery_title: "معرض الفعاليات",
+        gallery_subtitle: "لحظات مميزة واحتفالات في A la Fresh",
+        gallery_event1_title: "احتفال خاص",
+        gallery_event1_desc: "لحظات فريدة بنشارك فيها الحلاوة",
+        gallery_event2_title: "حفلة الفراولة",
+        gallery_event2_desc: "بنستمتع سوا كمجتمع",
+        gallery_event3_title: "لحظات حلوة",
+        gallery_event3_desc: "بنصنع ذكريات جميلة",
+        gallery_event4_title: "حلاوة مشتركة",
+        gallery_event4_desc: "تجارب ما تتنساش",
+        gallery_event5_title: "احتفال عائلي",
+        gallery_event5_desc: "متجمعين على الحلاوة",
+        gallery_event6_title: "لحظات مميزة",
+        gallery_event6_desc: "بنصنع روابط حلوة",
+        gallery_event7_title: "حفلة المجتمع",
+        gallery_event7_desc: "بنشارك الفرح مع بعض",
+        gallery_event8_title: "التقاليد والطعم",
+        gallery_event8_desc: "بنحافظ على أصلنا",
+        gallery_img1_alt: "فعالية A la Fresh - احتفال خاص",
+        gallery_img2_alt: "فعالية A la Fresh - حفلة فراولة",
+        gallery_img3_alt: "فعالية A la Fresh - لحظات حلوة",
+        gallery_img4_alt: "فعالية A la Fresh - حلاوة مشتركة",
+        gallery_img5_alt: "فعالية A la Fresh - احتفال عائلي",
+        gallery_img6_alt: "فعالية A la Fresh - لحظات مميزة",
+        gallery_img7_alt: "فعالية A la Fresh - حفلة المجتمع",
+        gallery_img8_alt: "فعالية A la Fresh - التقاليد والطعم",
+    }
 });
