@@ -1038,6 +1038,21 @@ body {
         display: flex;
     }
 
+    /* Hero layout change for mobile/tablet */
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .hero-image {
+        order: 2; /* imagen después del texto */
+    }
+
+    .hero-text {
+        order: 1; /* texto primero */
+    }
+
     .nav-menu {
     position: fixed;
     left: -100%;
