@@ -1180,6 +1180,10 @@ body {
         font-size: 36px !important;
     }
 
+    .hero-content {
+        padding: 0 10px;
+    }
+
     .section-title {
         font-size: 36px;
     }
@@ -1774,128 +1778,83 @@ html {
     cursor: pointer;
     flex-shrink: 0;
 }
-/* Removed stray closing brace */
 
-/* Removed duplicate conflicting social styles block to respect unified styles above */
-
-.social-btn.whatsapp-btn {
-    background: linear-gradient(135deg, #25d366, #128c7e);
-    color: white;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+/* Minimal standalone Instagram strawberry link */
+.insta-strawberry-min {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #ffedf4, #ffc2d6 70%, #ff9ab9 100%);
+  box-shadow:0 4px 14px rgba(233,30,99,0.25);
+  transition:all .35s ease;
+  position:relative;
+  isolation:isolate;
 }
-
-.social-btn.whatsapp-btn:hover {
-    background: linear-gradient(135deg, #128c7e, #25d366);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+.insta-strawberry-min::after {
+  content:"";
+  position:absolute; inset:0; border-radius:50%;
+  background:radial-gradient(circle at 70% 30%, rgba(255,255,255,0.7), transparent 55%);
+  opacity:.9;
+  mix-blend-mode:screen;
+  pointer-events:none;
+  transition:opacity .4s ease;
 }
+.insta-strawberry-emoji { font-size:3.4rem; filter:drop-shadow(0 3px 6px rgba(0,0,0,0.25)); transition:transform .5s ease; }
+.insta-strawberry-min:hover { transform:translateY(-6px); box-shadow:0 10px 28px rgba(233,30,99,0.4); }
+.insta-strawberry-min:hover .insta-strawberry-emoji { transform:scale(1.08) rotate(-6deg); }
+.insta-strawberry-min:active { transform:scale(.92); }
+@media (max-width:768px){ .insta-strawberry-min { width:95px; height:95px; } .insta-strawberry-emoji { font-size:2.9rem; } }
+@media (max-width:480px){ .insta-strawberry-min { width:85px; height:85px; } .insta-strawberry-emoji { font-size:2.6rem; } }
 
-.social-btn.instagram-btn {
-    background: linear-gradient(135deg, #e4405f, #833ab4);
-    color: white;
-    box-shadow: 0 4px 15px rgba(228, 64, 95, 0.3);
+/* Inline Instagram strawberry block */
+.instagram-inline {
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:22px 26px;
+  background:rgba(255,255,255,0.55);
+  border:1px solid rgba(233,30,99,0.15);
+  border-radius:24px;
+  backdrop-filter: blur(6px);
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
-
-.social-btn.instagram-btn:hover {
-    background: linear-gradient(135deg, #833ab4, #e4405f);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(228, 64, 95, 0.4);
+.insta-avatar {
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at 35% 30%, #ffb9d2, #ff5d8a 60%, #c80049 100%);
+  text-decoration:none;
+  position:relative;
+  box-shadow:0 8px 20px rgba(233,30,99,0.35);
+  transition:transform .35s ease, box-shadow .35s ease;
 }
-
-.social-btn.facebook-btn {
-    background: linear-gradient(135deg, #4267B2, #365899);
-    color: white;
-    box-shadow: 0 4px 15px rgba(66, 103, 178, 0.3);
-    opacity: 0.6;
-    cursor: not-allowed;
+.insta-avatar::after { content:""; position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 70% 30%, rgba(255,255,255,.5), transparent 55%); mix-blend-mode:screen; pointer-events:none; }
+.insta-avatar:hover { transform:translateY(-6px) scale(1.05); box-shadow:0 14px 28px rgba(233,30,99,0.45); }
+.insta-avatar:active { transform:scale(.94); }
+.insta-emoji { font-size:3.2rem; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.25)); animation: instaFloat 4s ease-in-out infinite; }
+@keyframes instaFloat { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-8px);} }
+.insta-text { display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
+.insta-title { font-family:'Dancing Script', cursive; font-size:2rem; line-height:1; color:var(--primary-strawberry); text-decoration:none; letter-spacing:.5px; }
+.insta-title:hover { text-decoration:underline; }
+.insta-handle { font-family:'Poppins', sans-serif; font-size:.95rem; color:#555; text-decoration:none; background:linear-gradient(90deg, var(--primary-strawberry), var(--secondary-pink)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-weight:600; }
+.insta-handle:hover { opacity:.8; }
+@media (max-width:768px){
+  .instagram-inline { padding:18px 20px; gap:14px; }
+  .insta-avatar { width:72px; height:72px; }
+  .insta-emoji { font-size:2.6rem; }
+  .insta-title { font-size:1.6rem; }
 }
-
-.social-btn i {
-    font-size: 1.1rem;
-}
-
-/* Responsive Social Section */
-@media (max-width: 768px) {
-    .social-section {
-        margin-top: 40px;
-        padding: 30px 20px;
-    }
-    
-    .social-title {
-        font-size: 1.8rem;
-    }
-    
-    .social-subtitle {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-    
-    .social-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .social-card {
-        padding: 25px 20px;
-    }
-    
-    .social-actions {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .social-btn {
-        width: 100%;
-        justify-content: center;
-        padding: 14px 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .social-section {
-        padding: 25px 15px;
-    }
-    
-    .social-title {
-        font-size: 1.6rem;
-    }
-    
-    .social-card {
-        padding: 20px 15px;
-    }
-    
-    .social-header {
-        gap: 12px;
-    }
-    
-    .social-icon-wrapper {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-    }
-    
-    .social-info h4 {
-        font-size: 1.2rem;
-    }
-    
-    .social-qr {
-        width: 70px;
-        height: 70px;
-    }
-}
-
-/* Ultra small phones */
-@media (max-width: 360px) {
-    .nav-menu {
-        gap: 6px;
-        padding: 8px max(10px, env(safe-area-inset-right)) 10px max(10px, env(safe-area-inset-left));
-    }
-    .nav-link {
-        font-size: 11px;
-        padding: 4px 6px;
-    }
-    .lang-current {
-        font-size: 11px;
-        padding: 4px 8px;
-    }
+@media (max-width:480px){
+  .instagram-inline { padding:16px 18px; }
+  .insta-avatar { width:64px; height:64px; }
+  .insta-emoji { font-size:2.3rem; }
+  .insta-title { font-size:1.4rem; }
+  .insta-handle { font-size:.85rem; }
 }
