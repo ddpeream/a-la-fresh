@@ -1,0 +1,47 @@
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fas fa-strawberry">🍓</i>
+            <span>A la Fresh</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link" data-translate="nav_inicio" data-page="index">Inicio</a></li>
+            <li><a href="productos.html" class="nav-link" data-translate="nav_productos" data-page="productos">Productos</a></li>
+            <li><a href="galeria.html" class="nav-link" data-translate="nav_galeria" data-page="galeria">Galería</a></li>
+            <li><a href="contacto.html" class="nav-link" data-translate="nav_contacto" data-page="contacto">Contacto</a></li>
+            <li class="language-selector">
+                <div class="lang-dropdown">
+                    <button class="lang-current" id="currentLang">
+                        <span class="flag">🇪🇸</span>
+                        <span>ES</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="lang-options" id="langOptions">
+                        <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">
+                            <span class="flag">🇪🇸</span>
+                            <span>Español</span>
+                        </button>
+                        <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">
+                            <span class="flag">🇺🇸</span>
+                            <span>English</span>
+                        </button>
+                        <button class="lang-btn" data-lang="zh" onclick="changeLanguage('zh')">
+                            <span class="flag">🇨🇳</span>
+                            <span>中文</span>
+                        </button>
+                        <button class="lang-btn" data-lang="fr" onclick="changeLanguage('fr')">
+                            <span class="flag">🇫🇷</span>
+                            <span>Français</span>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
