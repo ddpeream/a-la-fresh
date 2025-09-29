@@ -147,7 +147,8 @@ const translations = {
     gallery_img6_alt: "Evento A la Fresh - Momentos especiales",
     gallery_img7_alt: "Evento A la Fresh - Fiesta comunitaria",
     gallery_img8_alt: "Evento A la Fresh - Tradición y sabor",
-  },    en: {
+  },    
+    en: {
         // Document
         doc_title: "A la Fresh - Antioquia Neighborhood",
         doc_description:
@@ -294,7 +295,8 @@ const translations = {
     gallery_img6_alt: "A la Fresh Event - Special moments",
     gallery_img7_alt: "A la Fresh Event - Community party",
     gallery_img8_alt: "A la Fresh Event - Tradition and flavor",
-  },    zh: {
+  },    
+    zh: {
         // Document
         doc_title: "新鲜草莓店 - 安蒂奥基亚社区",
         doc_description: "新鲜草莓店 - 麦德林安蒂奥基亚社区的新鲜美味草莓。",
@@ -439,7 +441,8 @@ const translations = {
     gallery_img6_alt: "A la Fresh活动 - 特殊时刻",
     gallery_img7_alt: "A la Fresh活动 - 社区聚会",
     gallery_img8_alt: "A la Fresh活动 - 传统与风味",
-  },    fr: {
+  },    
+    fr: {
         // Document
         doc_title: "A la Fresh - Quartier Antioquia",
         doc_description:
