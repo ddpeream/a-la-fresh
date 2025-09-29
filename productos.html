@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A la Fresh - Productos</title>
+    <meta name="description" content="A la Fresh - Fresas frescas y deliciosas en el Barrio Antioquia, Medellín. Fresh strawberries and delicious treats. 安蒂奥基亚社区新鲜草莓店. Fraises fraîches quartier Antioquia.">
+    <meta name="keywords" content="fresas, strawberries, Barrio Antioquia, Medellín, Colombia, fresh, fresco, 草莓, fraises">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="translations.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-strawberry">🍓</i>
+                <span>A la Fresh</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="inicio.html" class="nav-link" data-translate="nav_inicio">Inicio</a></li>
+                <li><a href="productos.html" class="nav-link active" data-translate="nav_productos">Productos</a></li>
+                <li><a href="galeria.html" class="nav-link" data-translate="nav_galeria">Galería</a></li>
+                <li><a href="contacto.html" class="nav-link" data-translate="nav_contacto">Contacto</a></li>
+                <li class="language-selector">
+                    <div class="lang-dropdown">
+                        <button class="lang-current" id="currentLang">
+                            <span class="flag">🇪🇸</span>
+                            <span>ES</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-options" id="langOptions">
+                            <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">
+                                <span class="flag">🇪🇸</span>
+                                <span>Español</span>
+                            </button>
+                            <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">
+                                <span class="flag">🇺🇸</span>
+                                <span>English</span>
+                            </button>
+                            <button class="lang-btn" data-lang="zh" onclick="changeLanguage('zh')">
+                                <span class="flag">🇨🇳</span>
+                                <span>中文</span>
+                            </button>
+                            <button class="lang-btn" data-lang="fr" onclick="changeLanguage('fr')">
+                                <span class="flag">🇫🇷</span>
+                                <span>Français</span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="products_title">Nuestras Deliciosas Fresas</h2>
+                <p class="section-subtitle" data-translate="products_subtitle">Frescura, dulzor y calidad en cada bocado</p>
+                <div class="title-decoration">
+                    <div class="decoration-line"></div>
+                    <div class="decoration-icon">🍓</div>
+                    <div class="decoration-line"></div>
+                </div>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="card-image">
+                        <img src="assets/home/fresh10.jpg" alt="Productos frescos" class="product-img">
+                        <div class="card-overlay">
+                            <div class="card-icon">🍓</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Fresas Frescas Premium</h3>
+                        <p>Directamente del campo a tu mesa, con la más alta calidad y frescura. Fresas jugosas y dulces que deleitan el paladar.</p>
+                        <div class="card-features">
+                            <span class="feature">🍓 100% Natural</span>
+                            <span class="feature">🚚 Entrega Rápida</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <img src="assets/home/fresh3.jpg" alt="Ambiente del local" class="product-img">
+                        <div class="card-overlay">
+                            <div class="card-icon">🍫</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 data-translate="product2_title">Delicias con Fresas</h3>
+                        <p data-translate="product2_description">Un ambiente acogedor donde puedes disfrutar de nuestras fresas con crema, chocolate, obleas y muchas combinaciones deliciosas.</p>
+                        <div class="card-features">
+                            <span class="feature" data-translate="product2_feature1">🍫 Con Chocolate</span>
+                            <span class="feature" data-translate="product2_feature2">🥛 Con Crema</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="card-image">
+                        <div class="placeholder-image">
+                            <div class="placeholder-content">
+                                <i class="fas fa-cookie-bite"></i>
+                                <span>Aquí irían fotos de productos específicos, fresas con obleas, fresas con crema, o el área de atención al cliente</span>
+                            </div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-icon">🍪</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 data-translate="product3_title">Combinaciones Especiales</h3>
+                        <p data-translate="product3_description">Servicio personalizado con el cariño que nos caracteriza. Crea tu propia combinación de fresas con tus toppings favoritos.</p>
+                        <div class="card-features">
+                            <span class="feature" data-translate="product3_feature1">⭐ Calidad Premium</span>
+                            <span class="feature" data-translate="product3_feature2">👥 Servicio Personal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="products-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🌟</div>
+                    <h4 data-translate="feature1_title">Calidad Garantizada</h4>
+                    <p data-translate="feature1_description">Seleccionamos cada producto con esmero</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🍓</div>
+                    <h4 data-translate="feature2_title">Frescura Garantizada</h4>
+                    <p data-translate="feature2_description">Seleccionamos cada fresa con esmero para ofrecerte lo mejor</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏠</div>
+                    <h4 data-translate="feature3_title">Barrio Antioquia</h4>
+                    <p data-translate="feature3_description">Orgullosamente parte de la comunidad</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🍯</div>
+                    <h4 data-translate="feature4_title">Dulzura Natural</h4>
+                    <p data-translate="feature4_description">Cada fresa viene con su dulzor natural perfecto</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-strawberry">🍓</i>
+                <span>A la Fresh</span>
+            </div>
+            <p class="footer-text" data-translate="footer_text">
+                Con dulzor desde el Barrio Antioquia 🍓
+            </p>
+            <div class="footer-strawberries">
+                <span class="strawberry">🍓</span>
+                <span class="strawberry">🍓</span>
+                <span class="strawberry">🍓</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
