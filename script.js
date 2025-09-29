@@ -2,14 +2,69 @@
 let currentSection = 'home';
 const sections = ['home', 'products', 'gallery', 'contact'];
 
+// Cargar componentes reutilizables (header y footer)
+async function loadComponents() {
+    try {
+        // Cargar header
+        const headerPlaceholder = document.getElementById('header-placeholder');
+        if (headerPlaceholder) {
+            const headerResponse = await fetch('components/header.html');
+            const headerHtml = await headerResponse.text();
+            headerPlaceholder.innerHTML = headerHtml;
+            console.log('Header cargado correctamente');
+        }
+        
+        // Cargar footer
+        const footerPlaceholder = document.getElementById('footer-placeholder');
+        if (footerPlaceholder) {
+            const footerResponse = await fetch('components/footer.html');
+            const footerHtml = await footerResponse.text();
+            footerPlaceholder.innerHTML = footerHtml;
+            console.log('Footer cargado correctamente');
+        }
+        
+        // Marcar el nav-link activo según la página actual
+        markActiveNavLink();
+        
+        // Inicializar funcionalidades después de cargar los componentes
+        initializeNavigation();
+        initializeMobileMenu();
+        initializeLanguageDropdown();
+        
+    } catch (error) {
+        console.error('Error cargando componentes:', error);
+    }
+}
+
+// Marcar el nav-link activo según la página actual
+function markActiveNavLink() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        const linkPage = link.getAttribute('data-page');
+        
+        // Si es index.html o la raíz
+        if ((currentPage === 'index.html' || currentPage === '') && linkPage === 'index') {
+            link.classList.add('active');
+        }
+        // Para las demás páginas
+        else if (currentPage.includes(linkPage)) {
+            link.classList.add('active');
+        }
+    });
+}
+
 // Inicialización cuando el DOM está listo
-document.addEventListener('DOMContentLoaded', function() {
-    initializeNavigation();
+document.addEventListener('DOMContentLoaded', async function() {
+    // Primero cargar los componentes
+    await loadComponents();
+    
+    // Luego inicializar el resto
     initializeAnimations();
     initializeScrollEffects();
-    initializeMobileMenu();
     initializeParallax();
-    initializeLanguageDropdown();
     initializeSectionObserver(); // Nuevo observer para secciones
     initializeDynamicGallery(); // Inicializar galería dinámica
     
@@ -25,13 +80,19 @@ function initializeNavigation() {
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            scrollToSection(targetId);
+            const href = this.getAttribute('href');
             
-            // Actualizar clase activa
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
+            // Solo prevenir default y hacer scroll si es un enlace hash (#)
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                scrollToSection(targetId);
+                
+                // Actualizar clase activa
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            }
+            // Si no es hash, dejar que navegue normalmente (inicio.html, productos.html)
         });
     });
 }
