@@ -1033,9 +1033,47 @@ body {
 }
 
 /* Responsive Design */
+/* ===================================
+   RESPONSIVE DESIGN - MOBILE/TABLET
+   Version: 3.0 - Hamburger con estilo desktop
+   ================================== */
+
 @media (max-width: 768px) {
+    /* Navbar Mobile */
+    .navbar {
+        padding: 12px 15px;
+    }
+    
+    /* Mostrar hamburger en mobile */
     .hamburger {
         display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        z-index: 1001;
+        gap: 5px;
+    }
+    
+    /* Estilos de las barras del hamburger */
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: var(--primary-strawberry);
+        display: block;
+        transition: all 0.3s ease;
+        border-radius: 3px;
+    }
+    
+    /* Animación del hamburger cuando está activo */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
     }
 
     /* Hero layout change for mobile/tablet */
@@ -1046,80 +1084,110 @@ body {
     }
 
     .hero-image {
-        order: 2; /* imagen después del texto */
+        order: 2;
     }
 
     .hero-text {
-        order: 1; /* texto primero */
+        order: 1;
     }
 
+    /* Menú mobile con hamburger - estilo visual del desktop */
     .nav-menu {
-    position: fixed;
-    left: -100%;
-    top: 70px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap; /* todas en una sola línea */
-    gap: 10px;
-    background-color: #ffffff;
-    width: 100%;
-    justify-content: center;
-    transition: 0.3s;
-    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.08);
-    padding: 10px max(12px, env(safe-area-inset-right)) 12px max(12px, env(safe-area-inset-left));
-    overflow-x: auto; /* evita recorte horizontal */
-    overflow-y: visible; /* permite que el dropdown se muestre fuera del alto del menú */
-    box-sizing: border-box; /* respeta padding para ancho */
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        display: flex;
+        flex-direction: row; /* Horizontal como desktop */
+        gap: 30px; /* Gap exacto del desktop */
+        list-style: none;
+        padding: 25px 30px;
+        margin: 0;
+        flex-wrap: wrap; /* Permitir wrap si es necesario */
+        background: rgba(255, 255, 255, 0.95); /* Fondo semi-transparente como navbar */
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        width: calc(100% - 60px); /* Dejar espacio a los lados */
+        max-width: 500px; /* Limitar ancho máximo */
+        transition: left 0.3s ease-in-out;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); /* Sombra exacta del navbar */
+        z-index: 1000;
+        max-height: none; /* Sin scroll */
+        overflow: visible; /* Sin scroll */
+        justify-content: flex-start; /* Alinear al inicio */
+        align-items: center;
+        border-radius: 0 12px 12px 0; /* Bordes redondeados a la derecha */
     }
-
+    
+    /* Menú activo - se desliza desde la izquierda */
     .nav-menu.active {
         left: 0;
     }
-
-    /* Links horizontales, sin fondo; no seleccionadas en gris */
-    .nav-link {
-        padding: 6px 10px;
-        border-radius: 8px;
-        border: none;
-        background: transparent;
-        color: #666; /* gris más visible para no seleccionadas */
-        font-size: 13px;
-        white-space: nowrap; /* evita salto de línea */
+    
+    .nav-menu li {
+        flex: 0 0 auto;
+        white-space: nowrap;
     }
 
-    .nav-link:not(.active):hover {
+    /* Links con EXACTAMENTE el mismo estilo del desktop */
+    .nav-link {
+        text-decoration: none;
+        color: #555; /* Color exacto desktop */
+        font-weight: 500; /* Peso exacto desktop */
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 10px 0; /* Padding exacto desktop */
+        white-space: nowrap;
+        font-size: 16px; /* Tamaño exacto desktop */
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6); /* Sombra exacta desktop */
+        background: transparent;
+        border: none;
+        opacity: 1; /* Asegurar visibilidad */
+    }
+    
+    /* Mantener efecto hover del desktop */
+    .nav-link:not(.active) {
         color: #555;
     }
 
+    .nav-link:hover,
     .nav-link.active {
-        background: transparent;
-        color: var(--primary-strawberry);
-        border-color: transparent;
+        color: var(--primary-strawberry); /* Rosa fresa */
+        transform: translateY(-2px); /* Efecto hover exacto */
+    }
+    
+    /* Línea animada debajo - igual que desktop */
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(45deg, var(--primary-strawberry), var(--secondary-pink));
+        transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
     }
 
-    /* Evitar que el último elemento (idioma) quede pegado al borde */
-    .nav-menu > li:last-child {
-        margin-right: 8px;
-        flex: 0 0 auto;
-    }
-
-    /* Evitar que el selector de idioma se corte y acomodarlo antes del menú */
+    /* Selector de idioma - último elemento */
     .language-selector {
-        order: 2;
-        margin-right: 12px; /* separar del borde derecho */
         flex: 0 0 auto;
+        width: 100%; /* Ocupar toda la línea */
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 10px;
     }
-    .hamburger {
-        order: 3;
-        margin-left: 8px;
+    
+    .lang-dropdown {
+        min-width: auto;
     }
+    
     .lang-current {
-        white-space: nowrap;
-        padding: 6px 10px;
-        font-size: 12px;
-        transition: transform 0.3s ease;
-        text-align: center;
-    gap: 6px;
+        padding: 8px 12px;
+        font-size: 13px;
     }
 
     /* Prevent hero title from being hidden under fixed navbar on mobile */
@@ -1160,7 +1228,55 @@ body {
     }
 }
 
+/* Tablet portrait */
+@media (max-width: 768px) and (min-width: 481px) {
+    .nav-link {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+    
+    .lang-current {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+}
+
+/* Mobile landscape */
+@media (max-width: 640px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+    
+    .logo {
+        font-size: 1.3rem;
+    }
+    
+    .nav-link {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+}
+
+/* Mobile portrait */
 @media (max-width: 480px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .nav-link {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+    
+    .lang-current {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    
     .hero-buttons {
         flex-direction: column;
         align-items: center;
@@ -1186,6 +1302,39 @@ body {
 
     .contact-title .title-main {
         font-size: 40px;
+    }
+}
+
+/* Extra small mobile */
+@media (max-width: 360px) {
+    .nav-menu {
+        gap: 8px;
+    }
+    
+    .nav-link {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+    
+    .navbar {
+        padding: 8px 10px;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    .lang-current {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+    
+    .title-main {
+        font-size: 28px !important;
+    }
+    
+    .section-title {
+        font-size: 28px;
     }
 }
 
