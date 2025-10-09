@@ -23,6 +23,20 @@ async function loadComponents() {
             console.log('Footer cargado correctamente');
         }
         
+        // Cargar botón flotante de juego
+        const floatingGameBtnPlaceholder = document.getElementById('floating-game-btn-placeholder');
+        console.log('🍓 Buscando placeholder del botón:', floatingGameBtnPlaceholder);
+        if (floatingGameBtnPlaceholder) {
+            console.log('🍓 Placeholder encontrado, cargando botón...');
+            const floatingGameBtnResponse = await fetch('components/floating-game-button.html');
+            const floatingGameBtnHtml = await floatingGameBtnResponse.text();
+            console.log('🍓 HTML del botón obtenido:', floatingGameBtnHtml.substring(0, 100));
+            floatingGameBtnPlaceholder.innerHTML = floatingGameBtnHtml;
+            console.log('🍓 Botón flotante de juego cargado correctamente');
+        } else {
+            console.warn('⚠️ No se encontró el placeholder del botón flotante');
+        }
+        
         // Marcar el nav-link activo según la página actual
         markActiveNavLink();
         
@@ -856,3 +870,510 @@ window.scrollToSection = scrollToSection;
 window.addRippleEffect = addRippleEffect;
 window.updateCurrentLanguageDisplay = updateCurrentLanguageDisplay;
 window.updateGalleryTranslations = updateGalleryTranslations;
+
+// ============================================
+// 🍓 GSAP MAGIC: STRAWBERRY MAGNETIC PHYSICS
+// ============================================
+function initStrawberryMagicWithGSAP() {
+    // Esperar a que GSAP esté cargado
+    if (typeof gsap === 'undefined') {
+        console.log('⏳ Esperando GSAP...');
+        setTimeout(initStrawberryMagicWithGSAP, 100);
+        return;
+    }
+
+    console.log('🍓 Iniciando GSAP Strawberry Magic!');
+    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+    const strawberries = document.querySelectorAll('.floating-strawberry, .cute-strawberry');
+    const chocolates = document.querySelectorAll('.floating-chocolate');
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // 🎯 ANIMACIÓN 1: Efecto magnético con física realista
+    strawberries.forEach((strawberry, index) => {
+        // Timeline principal con loop infinito
+        const tl = gsap.timeline({ repeat: -1 });
+        
+        // Rotación 3D continua
+        gsap.to(strawberry, {
+            rotationY: 360,
+            duration: 3 + index,
+            repeat: -1,
+            ease: "none"
+        });
+
+        // Flotación con bounce
+        tl.to(strawberry, {
+            y: "+=30",
+            duration: 2 + (index * 0.5),
+            ease: "power1.inOut",
+            repeat: -1,
+            yoyo: true
+        });
+
+        // Efecto de escala pulsante (como si respirara)
+        gsap.to(strawberry, {
+            scale: 1.2,
+            duration: 1.5 + (index * 0.3),
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // 🧲 EFECTO MAGNÉTICO al pasar el cursor
+        gsap.ticker.add(() => {
+            const rect = strawberry.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const distanceX = mouseX - centerX;
+            const distanceY = mouseY - centerY;
+            const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            
+            // Radio de atracción magnética
+            const magnetRadius = 200;
+            
+            if (distance < magnetRadius) {
+                const force = (magnetRadius - distance) / magnetRadius;
+                const pullX = distanceX * force * 0.3;
+                const pullY = distanceY * force * 0.3;
+                
+                gsap.to(strawberry, {
+                    x: `+=${pullX}`,
+                    y: `+=${pullY}`,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+                
+                // Efecto de brillo cuando está cerca
+                gsap.to(strawberry, {
+                    filter: `brightness(${1 + force}) drop-shadow(0 0 ${force * 20}px rgba(233, 30, 99, 0.8))`,
+                    duration: 0.2
+                });
+            } else {
+                // Volver a posición original
+                gsap.to(strawberry, {
+                    x: 0,
+                    y: 0,
+                    filter: 'brightness(1) drop-shadow(0 0 0px rgba(233, 30, 99, 0))',
+                    duration: 1,
+                    ease: "elastic.out(1, 0.3)"
+                });
+            }
+        });
+    });
+
+    // 🎯 ANIMACIÓN 2: Chocolates con path curvo
+    chocolates.forEach((chocolate, index) => {
+        gsap.to(chocolate, {
+            motionPath: {
+                path: [
+                    { x: 0, y: 0 },
+                    { x: 50, y: -30 },
+                    { x: 0, y: -60 },
+                    { x: -50, y: -30 },
+                    { x: 0, y: 0 }
+                ],
+                curviness: 1.5
+            },
+            duration: 8 + (index * 2),
+            repeat: -1,
+            ease: "none",
+            rotation: 360
+        });
+    });
+
+    // 🎯 ANIMACIÓN 3: Hero title con efecto espectacular
+    const heroTitle = document.querySelector('.title-main');
+    if (heroTitle) {
+        gsap.from(heroTitle, {
+            scale: 0,
+            rotation: 720,
+            opacity: 0,
+            duration: 2,
+            ease: "elastic.out(1, 0.5)",
+            scrollTrigger: {
+                trigger: heroTitle,
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Efecto de letras individuales
+        const text = heroTitle.textContent;
+        heroTitle.innerHTML = text.split('').map((char, i) => 
+            `<span style="display:inline-block">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+
+        gsap.from(heroTitle.querySelectorAll('span'), {
+            y: -100,
+            opacity: 0,
+            rotation: 360,
+            stagger: 0.05,
+            duration: 1,
+            ease: "back.out(1.7)",
+            delay: 0.5
+        });
+    }
+
+    // 🎯 ANIMACIÓN 4: Scroll indicator con bounce infinito
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        gsap.to(scrollIndicator, {
+            y: 20,
+            duration: 0.8,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut"
+        });
+    }
+
+    // 🎯 ANIMACIÓN 5: Parallax en scroll
+    gsap.utils.toArray('.floating-strawberry').forEach((strawberry, i) => {
+        gsap.to(strawberry, {
+            y: (i + 1) * 100,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+    });
+
+    console.log('✨ GSAP Strawberry Magic activado!');
+}
+
+// Iniciar la magia cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStrawberryMagicWithGSAP);
+} else {
+    initStrawberryMagicWithGSAP();
+}
+
+// ============================================
+// 📸 GSAP GALLERY MAGIC: 3D CAROUSEL & EFFECTS
+// ============================================
+function initGalleryMagicWithGSAP() {
+    // Esperar a que GSAP esté cargado
+    if (typeof gsap === 'undefined') {
+        console.log('⏳ Esperando GSAP para galería...');
+        setTimeout(initGalleryMagicWithGSAP, 100);
+        return;
+    }
+
+    console.log('📸 Iniciando GSAP Gallery Magic!');
+    gsap.registerPlugin(ScrollTrigger, Flip);
+
+    const gallerySection = document.querySelector('.gallery');
+    const slides = document.querySelectorAll('.gallery-slide');
+    
+    if (!gallerySection || slides.length === 0) {
+        console.log('Galería no encontrada, esperando...');
+        setTimeout(initGalleryMagicWithGSAP, 500);
+        return;
+    }
+
+    // 🎯 ANIMACIÓN 1: Entrada épica de la galería con 3D flip
+    gsap.from('.section-title', {
+        scrollTrigger: {
+            trigger: '.gallery',
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: 1
+        },
+        rotationX: -90,
+        opacity: 0,
+        y: 100,
+        transformOrigin: 'bottom center',
+        duration: 1.5,
+        ease: 'power4.out'
+    });
+
+    // 🎯 ANIMACIÓN 2: Efecto de partículas de fresa alrededor de las fotos
+    function createStrawberryParticles() {
+        const gallery = document.querySelector('.gallery-container');
+        if (!gallery) return;
+
+        for (let i = 0; i < 15; i++) {
+            const particle = document.createElement('div');
+            particle.innerHTML = '🍓';
+            particle.style.position = 'absolute';
+            particle.style.fontSize = Math.random() * 20 + 10 + 'px';
+            particle.style.opacity = '0';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '10';
+            gallery.style.position = 'relative';
+            gallery.appendChild(particle);
+
+            // Animación de partícula flotante
+            gsap.to(particle, {
+                x: `random(-300, 300)`,
+                y: `random(-300, 300)`,
+                opacity: 0.7,
+                rotation: 'random(-360, 360)',
+                scale: 'random(0.5, 1.5)',
+                duration: 'random(3, 6)',
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: i * 0.2
+            });
+        }
+    }
+
+    createStrawberryParticles();
+
+    // 🎯 ANIMACIÓN 3: Efecto de hover en las slides con 3D tilt
+    slides.forEach((slide) => {
+        const img = slide.querySelector('img');
+        const overlay = slide.querySelector('.slide-overlay');
+        
+        if (!img || !overlay) return;
+
+        // Efecto 3D tilt con el mouse
+        slide.addEventListener('mousemove', (e) => {
+            const rect = slide.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+
+            gsap.to(img, {
+                rotationX: rotateX,
+                rotationY: rotateY,
+                scale: 1.1,
+                duration: 0.5,
+                ease: 'power2.out',
+                transformPerspective: 1000
+            });
+
+            gsap.to(overlay, {
+                rotationX: rotateX * 0.5,
+                rotationY: rotateY * 0.5,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        });
+
+        slide.addEventListener('mouseleave', () => {
+            gsap.to(img, {
+                rotationX: 0,
+                rotationY: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: 'elastic.out(1, 0.5)'
+            });
+
+            gsap.to(overlay, {
+                rotationX: 0,
+                rotationY: 0,
+                duration: 0.8,
+                ease: 'elastic.out(1, 0.5)'
+            });
+        });
+
+        // Efecto de clic con ondas
+        slide.addEventListener('click', () => {
+            // Crear onda de expansión
+            const ripple = document.createElement('div');
+            ripple.style.position = 'absolute';
+            ripple.style.width = '10px';
+            ripple.style.height = '10px';
+            ripple.style.background = 'rgba(233, 30, 99, 0.5)';
+            ripple.style.borderRadius = '50%';
+            ripple.style.top = '50%';
+            ripple.style.left = '50%';
+            ripple.style.transform = 'translate(-50%, -50%)';
+            ripple.style.pointerEvents = 'none';
+            slide.appendChild(ripple);
+
+            gsap.to(ripple, {
+                width: '800px',
+                height: '800px',
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power2.out',
+                onComplete: () => ripple.remove()
+            });
+
+            // Efecto de shake
+            gsap.to(slide, {
+                x: -10,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 5,
+                ease: 'power2.inOut'
+            });
+        });
+    });
+
+    // 🎯 ANIMACIÓN 4: Botones de navegación con efecto magnético
+    const navButtons = document.querySelectorAll('.gallery-nav');
+    navButtons.forEach(button => {
+        gsap.set(button, { scale: 1 });
+
+        button.addEventListener('mouseenter', () => {
+            gsap.to(button, {
+                scale: 1.3,
+                rotation: 360,
+                backgroundColor: '#e91e63',
+                duration: 0.5,
+                ease: 'back.out(1.7)'
+            });
+        });
+
+        button.addEventListener('mouseleave', () => {
+            gsap.to(button, {
+                scale: 1,
+                rotation: 0,
+                backgroundColor: 'rgba(233, 30, 99, 0.8)',
+                duration: 0.5,
+                ease: 'elastic.out(1, 0.5)'
+            });
+        });
+
+        // Efecto de pulso continuo
+        gsap.to(button, {
+            boxShadow: '0 0 30px rgba(233, 30, 99, 0.8)',
+            duration: 1,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    });
+
+    // 🎯 ANIMACIÓN 5: Indicadores con efecto de ondas
+    const indicators = document.querySelectorAll('.indicator');
+    indicators.forEach((indicator, index) => {
+        gsap.to(indicator, {
+            scale: 1.2,
+            duration: 0.3,
+            repeat: -1,
+            yoyo: true,
+            delay: index * 0.1,
+            ease: 'sine.inOut'
+        });
+
+        indicator.addEventListener('click', () => {
+            gsap.fromTo(indicator, 
+                { scale: 1 },
+                { 
+                    scale: 2, 
+                    opacity: 0, 
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    onComplete: () => gsap.set(indicator, { scale: 1, opacity: 1 })
+                }
+            );
+        });
+    });
+
+    // 🎯 ANIMACIÓN 6: Parallax en scroll para toda la galería
+    gsap.to('.gallery-container', {
+        scrollTrigger: {
+            trigger: '.gallery',
+            start: 'top center',
+            end: 'bottom center',
+            scrub: true
+        },
+        y: -50,
+        ease: 'none'
+    });
+
+    // 🎯 ANIMACIÓN 7: Efecto de brillos aleatorios
+    function createSparkles() {
+        const container = document.querySelector('.gallery-container');
+        if (!container) return;
+
+        setInterval(() => {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'absolute';
+            sparkle.style.fontSize = '20px';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '100';
+            container.appendChild(sparkle);
+
+            gsap.to(sparkle, {
+                y: -100,
+                opacity: 0,
+                rotation: 360,
+                scale: 0,
+                duration: 2,
+                ease: 'power2.out',
+                onComplete: () => sparkle.remove()
+            });
+        }, 2000);
+    }
+
+    createSparkles();
+
+    // 🎯 ANIMACIÓN 8: Transición de slides con FLIP
+    const prevBtn = document.querySelector('.gallery-prev');
+    const nextBtn = document.querySelector('.gallery-next');
+    
+    function animateSlideTransition() {
+        const activeSlide = document.querySelector('.gallery-slide.active');
+        if (!activeSlide) return;
+
+        const state = Flip.getState(activeSlide);
+        
+        Flip.from(state, {
+            duration: 1,
+            ease: 'power2.inOut',
+            scale: true,
+            absolute: true,
+            onEnter: elements => {
+                gsap.fromTo(elements, 
+                    { opacity: 0, scale: 0, rotation: -180 },
+                    { opacity: 1, scale: 1, rotation: 0, duration: 1, ease: 'back.out(1.7)' }
+                );
+            },
+            onLeave: elements => {
+                gsap.to(elements, 
+                    { opacity: 0, scale: 0, rotation: 180, duration: 0.6, ease: 'back.in(1.7)' }
+                );
+            }
+        });
+    }
+
+    // Interceptar clics en navegación
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            setTimeout(animateSlideTransition, 50);
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            setTimeout(animateSlideTransition, 50);
+        });
+    }
+
+    console.log('✨ GSAP Gallery Magic activado!');
+}
+
+// Iniciar la magia de la galería
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(initGalleryMagicWithGSAP, 1000);
+    });
+} else {
+    setTimeout(initGalleryMagicWithGSAP, 1000);
+}
