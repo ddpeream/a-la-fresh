@@ -1,0 +1,141 @@
+<style>
+    .floating-game-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9999;
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #ff1744 0%, #f50057 50%, #ff4081 100%);
+        border-radius: 50% 50% 50% 0;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(255, 23, 68, 0.5);
+        transform: rotate(-45deg);
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        animation: float 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .floating-game-btn::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 20%;
+        width: 15px;
+        height: 20px;
+        background: #4caf50;
+        border-radius: 50% 50% 0 0;
+        transform: rotate(20deg);
+    }
+    
+    .floating-game-btn::after {
+        content: '';
+        position: absolute;
+        top: -8px;
+        right: 20%;
+        width: 15px;
+        height: 20px;
+        background: #4caf50;
+        border-radius: 50% 50% 0 0;
+        transform: rotate(-20deg);
+    }
+    
+    .floating-game-btn .btn-content {
+        transform: rotate(45deg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        line-height: 1.2;
+    }
+    
+    .floating-game-btn .emoji {
+        font-size: 2em;
+        margin-bottom: 2px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    
+    .floating-game-btn .text {
+        font-size: 0.65em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        white-space: nowrap;
+    }
+    
+    .floating-game-btn:hover {
+        transform: rotate(-45deg) scale(1.15) translateY(-5px);
+        box-shadow: 0 12px 35px rgba(255, 23, 68, 0.7);
+    }
+    
+    .floating-game-btn:active {
+        transform: rotate(-45deg) scale(1.05);
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: rotate(-45deg) translateY(0px);
+        }
+        50% {
+            transform: rotate(-45deg) translateY(-10px);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% {
+            box-shadow: 0 8px 25px rgba(255, 23, 68, 0.5);
+        }
+        50% {
+            box-shadow: 0 8px 35px rgba(255, 23, 68, 0.8), 0 0 30px rgba(255, 23, 68, 0.5);
+        }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .floating-game-btn {
+            width: 70px;
+            height: 70px;
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        .floating-game-btn .emoji {
+            font-size: 1.8em;
+        }
+        
+        .floating-game-btn .text {
+            font-size: 0.55em;
+        }
+    }
+    
+    /* Tooltip on hover */
+    .floating-game-btn[data-tooltip]:hover::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 0.85em;
+        white-space: nowrap;
+        transform: rotate(45deg) translateY(-10px);
+        margin-bottom: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        animation: none;
+    }
+</style>
+
+<a href="wiggle-universe.html" class="floating-game-btn" data-tooltip="¡Juega y gana puntos!" aria-label="Juego Memory Fresh">
+    <div class="btn-content">
+        <div class="emoji">🍓</div>
+        <div class="text">JUEGA</div>
+    </div>
+</a>
