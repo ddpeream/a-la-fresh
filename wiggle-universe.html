@@ -170,6 +170,63 @@
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             z-index: 2000;
         }
+        
+        /* Responsive para dispositivos móviles */
+        @media (max-width: 768px) {
+            .game-title {
+                font-size: 1.2em;
+            }
+            
+            .game-header {
+                padding: 10px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .game-stats {
+                gap: 15px;
+                width: 100%;
+                justify-content: space-around;
+            }
+            
+            .stat-label {
+                font-size: 0.6em;
+            }
+            
+            .stat-value {
+                font-size: 1.2em;
+            }
+            
+            .game-controls {
+                bottom: 20px;
+                gap: 10px;
+                flex-wrap: wrap;
+                padding: 0 10px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+            
+            .modal {
+                width: 90%;
+                max-width: 350px;
+                padding: 20px;
+            }
+            
+            .modal h2 {
+                font-size: 2em;
+            }
+            
+            .modal p {
+                font-size: 1.1em;
+            }
+            
+            .loading {
+                font-size: 1.5em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -241,10 +298,19 @@
             scene = new THREE.Scene();
             scene.fog = new THREE.Fog(0x667eea, 10, 50);
             
-            // Camera setup
+            // Detectar si es móvil
+            const isMobile = window.innerWidth <= 768;
+            
+            // Camera setup - ajustado para móviles
             const aspect = window.innerWidth / window.innerHeight;
             camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 1000);
-            camera.position.set(0, 0, 18);
+            
+            // Posición de cámara ajustada según el dispositivo
+            if (isMobile) {
+                camera.position.set(0, 0, 24); // Más lejos en móviles
+            } else {
+                camera.position.set(0, 0, 18); // Posición normal en desktop
+            }
             
             // Renderer setup
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -331,9 +397,15 @@
         // Create game cards
         function createCards() {
             const shuffledFruits = createCardPairs();
-            const cols = 6;
-            const rows = 3;
-            const spacing = 2.5;
+            
+            // Detectar si es móvil
+            const isMobile = window.innerWidth <= 768;
+            
+            // Layout ajustado según dispositivo
+            const cols = isMobile ? 3 : 6; // 3 columnas en móvil, 6 en desktop
+            const rows = isMobile ? 6 : 3; // 6 filas en móvil, 3 en desktop
+            const spacing = isMobile ? 2.2 : 2.5; // Menos espacio en móvil
+            
             const startX = -(cols - 1) * spacing / 2;
             const startY = (rows - 1) * spacing / 2;
             
@@ -344,7 +416,7 @@
                 const x = startX + col * spacing;
                 const y = startY - row * spacing;
                 
-                const card = createCard(fruit, x, y, index);
+                const card = createCard(fruit, x, y, index, isMobile);
                 cardMeshes.push(card);
                 cardData.push({
                     fruit: fruit,
@@ -364,8 +436,11 @@
         }
         
         // Create a single card
-        function createCard(emoji, x, y, index) {
-            const geometry = new THREE.BoxGeometry(2, 2.8, 0.1);
+        function createCard(emoji, x, y, index, isMobile = false) {
+            // Tamaño de carta ajustado para móviles
+            const cardWidth = isMobile ? 2 : 2;
+            const cardHeight = isMobile ? 2.8 : 2.8;
+            const geometry = new THREE.BoxGeometry(cardWidth, cardHeight, 0.1);
             
             // Create materials for each face
             const sideMaterial = new THREE.MeshPhongMaterial({
@@ -373,47 +448,52 @@
                 shininess: 100
             });
             
+            // Tamaño de canvas y fuente ajustado para móviles
+            const canvasSize = isMobile ? 512 : 256; // Mayor resolución en móvil
+            const questionFontSize = isMobile ? 240 : 120;
+            const emojiFontSize = isMobile ? 360 : 180;
+            
             // Front face (question mark)
             const frontCanvas = document.createElement('canvas');
-            frontCanvas.width = 256;
-            frontCanvas.height = 256;
+            frontCanvas.width = canvasSize;
+            frontCanvas.height = canvasSize;
             const frontCtx = frontCanvas.getContext('2d');
             
             // Gradient background
-            const gradient = frontCtx.createLinearGradient(0, 0, 256, 256);
+            const gradient = frontCtx.createLinearGradient(0, 0, canvasSize, canvasSize);
             gradient.addColorStop(0, '#e91e63');
             gradient.addColorStop(1, '#ff4081');
             frontCtx.fillStyle = gradient;
-            frontCtx.fillRect(0, 0, 256, 256);
+            frontCtx.fillRect(0, 0, canvasSize, canvasSize);
             
             // Question mark
             frontCtx.fillStyle = 'white';
-            frontCtx.font = 'bold 120px Arial';
+            frontCtx.font = `bold ${questionFontSize}px Arial`;
             frontCtx.textAlign = 'center';
             frontCtx.textBaseline = 'middle';
-            frontCtx.fillText('?', 128, 128);
+            frontCtx.fillText('?', canvasSize / 2, canvasSize / 2);
             
             const frontTexture = new THREE.CanvasTexture(frontCanvas);
             const frontMaterial = new THREE.MeshPhongMaterial({ map: frontTexture });
             
             // Back face (emoji)
             const backCanvas = document.createElement('canvas');
-            backCanvas.width = 256;
-            backCanvas.height = 256;
+            backCanvas.width = canvasSize;
+            backCanvas.height = canvasSize;
             const backCtx = backCanvas.getContext('2d');
             
             // Gradient background
-            const backGradient = backCtx.createLinearGradient(0, 0, 256, 256);
+            const backGradient = backCtx.createLinearGradient(0, 0, canvasSize, canvasSize);
             backGradient.addColorStop(0, '#667eea');
             backGradient.addColorStop(1, '#764ba2');
             backCtx.fillStyle = backGradient;
-            backCtx.fillRect(0, 0, 256, 256);
+            backCtx.fillRect(0, 0, canvasSize, canvasSize);
             
-            // Emoji
-            backCtx.font = 'bold 180px Arial';
+            // Emoji con mejor renderizado
+            backCtx.font = `bold ${emojiFontSize}px Arial`;
             backCtx.textAlign = 'center';
             backCtx.textBaseline = 'middle';
-            backCtx.fillText(emoji, 128, 128);
+            backCtx.fillText(emoji, canvasSize / 2, canvasSize / 2);
             
             const backTexture = new THREE.CanvasTexture(backCanvas);
             const backMaterial = new THREE.MeshPhongMaterial({ map: backTexture });
@@ -698,9 +778,18 @@
         
         // Window resize handler
         function onWindowResize() {
+            const isMobile = window.innerWidth <= 768;
+            
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Ajustar posición de cámara según el dispositivo
+            if (isMobile) {
+                camera.position.z = 24; // Más lejos en móviles
+            } else {
+                camera.position.z = 18; // Posición normal en desktop
+            }
         }
         
         // Animation loop
