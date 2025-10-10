@@ -2,19 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Memory Fresh Game - Wiggle Edition</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            touch-action: none; /* Prevenir zoom y scroll en móviles */
         }
         
         #canvas-container {
@@ -23,6 +31,7 @@
             left: 0;
             width: 100%;
             height: 100%;
+            touch-action: none;
         }
         
         #ui-overlay {
@@ -307,7 +316,7 @@
             
             // Posición de cámara ajustada según el dispositivo
             if (isMobile) {
-                camera.position.set(0, 0, 24); // Más lejos en móviles
+                camera.position.set(0, 0, 32); // Mucho más lejos en móviles
             } else {
                 camera.position.set(0, 0, 18); // Posición normal en desktop
             }
@@ -323,18 +332,18 @@
             mouse = new THREE.Vector2();
             
             // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            const ambientLight = new THREE.AmbientLight(0xffffff, isMobile ? 0.7 : 0.5);
             scene.add(ambientLight);
             
-            const pointLight1 = new THREE.PointLight(0xe91e63, 2, 50);
+            const pointLight1 = new THREE.PointLight(0xe91e63, isMobile ? 1.5 : 2, 50);
             pointLight1.position.set(5, 5, 5);
             scene.add(pointLight1);
             
-            const pointLight2 = new THREE.PointLight(0xffc107, 2, 50);
+            const pointLight2 = new THREE.PointLight(0xffc107, isMobile ? 1.5 : 2, 50);
             pointLight2.position.set(-5, -5, 5);
             scene.add(pointLight2);
             
-            const pointLight3 = new THREE.PointLight(0x00bcd4, 2, 50);
+            const pointLight3 = new THREE.PointLight(0x00bcd4, isMobile ? 1.5 : 2, 50);
             pointLight3.position.set(0, 5, -5);
             scene.add(pointLight3);
             
@@ -347,7 +356,9 @@
             // Event listeners
             window.addEventListener('resize', onWindowResize);
             renderer.domElement.addEventListener('click', onCardClick);
+            renderer.domElement.addEventListener('touchend', onCardClick); // Para móviles
             renderer.domElement.addEventListener('mousemove', onMouseMove);
+            renderer.domElement.addEventListener('touchmove', onTouchMove); // Para móviles
             
             // Hide loading
             document.getElementById('loading').style.display = 'none';
@@ -404,7 +415,7 @@
             // Layout ajustado según dispositivo
             const cols = isMobile ? 3 : 6; // 3 columnas en móvil, 6 en desktop
             const rows = isMobile ? 6 : 3; // 6 filas en móvil, 3 en desktop
-            const spacing = isMobile ? 2.2 : 2.5; // Menos espacio en móvil
+            const spacing = isMobile ? 2.0 : 2.5; // Menos espacio en móvil
             
             const startX = -(cols - 1) * spacing / 2;
             const startY = (rows - 1) * spacing / 2;
@@ -437,9 +448,9 @@
         
         // Create a single card
         function createCard(emoji, x, y, index, isMobile = false) {
-            // Tamaño de carta ajustado para móviles
-            const cardWidth = isMobile ? 2 : 2;
-            const cardHeight = isMobile ? 2.8 : 2.8;
+            // Tamaño de carta ajustado para móviles - más pequeñas
+            const cardWidth = isMobile ? 1.8 : 2;
+            const cardHeight = isMobile ? 2.5 : 2.8;
             const geometry = new THREE.BoxGeometry(cardWidth, cardHeight, 0.1);
             
             // Create materials for each face
@@ -544,8 +555,20 @@
         function onCardClick(event) {
             if (isProcessing) return;
             
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            // Manejar tanto eventos de mouse como táctiles
+            let clientX, clientY;
+            
+            if (event.type === 'touchend' && event.changedTouches) {
+                event.preventDefault(); // Prevenir doble click en móviles
+                clientX = event.changedTouches[0].clientX;
+                clientY = event.changedTouches[0].clientY;
+            } else {
+                clientX = event.clientX;
+                clientY = event.clientY;
+            }
+            
+            mouse.x = (clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(clientY / window.innerHeight) * 2 + 1;
             
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(cardMeshes, true);
@@ -577,6 +600,15 @@
                 if (!cardData[index].flipped && !cardData[index].matched) {
                     hoveredMesh.position.z = 0.5;
                 }
+            }
+        }
+        
+        // Handle touch move for mobile
+        function onTouchMove(event) {
+            if (event.touches.length > 0) {
+                const touch = event.touches[0];
+                mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
             }
         }
         
@@ -786,7 +818,7 @@
             
             // Ajustar posición de cámara según el dispositivo
             if (isMobile) {
-                camera.position.z = 24; // Más lejos en móviles
+                camera.position.z = 32; // Mucho más lejos en móviles
             } else {
                 camera.position.z = 18; // Posición normal en desktop
             }
