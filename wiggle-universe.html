@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Memory Fresh Game - Wiggle Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -64,6 +67,29 @@
         .game-stats {
             display: flex;
             gap: 30px;
+        }
+
+        .status {
+            margin-top: 8px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            text-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+            min-height: 1.2em;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 900;
+            pointer-events: all;
+        }
+
+        .modal-backdrop.active {
+            display: block;
         }
         
         .stat {
@@ -258,6 +284,7 @@
                     <div class="stat-value" id="timer">0:00</div>
                 </div>
             </div>
+            <div id="status" class="status" aria-live="polite"></div>
         </div>
         
         <div class="game-controls">
@@ -265,6 +292,7 @@
             <button class="btn" onclick="window.location.href='index.html'">🏠 Inicio</button>
         </div>
         
+        <div id="modal-backdrop" class="modal-backdrop"></div>
         <div id="win-modal" class="modal">
             <h2>🎉 ¡GANASTE! 🎉</h2>
             <div class="modal-stats">
@@ -291,6 +319,18 @@
         let startTime;
         let timerInterval;
         let isProcessing = false;
+
+        // Cached refs / state
+        let isMobileGlobal = false;
+        let particlesMesh = null;
+        let confettiMesh = null;
+        let pointLights = [];
+        let timerStarted = false;
+        let entranceTimeouts = [];
+        let entranceRafIds = [];
+        let confettiRafId = null;
+        let matchTimeouts = [];
+        let statusTimeoutId = null;
         
         // Fruit emojis for the game
         const fruits = ['🍓', '🍒', '🍑', '🍊', '🍋', '🍌', '🍉', '🍇', '🍈'];
@@ -298,7 +338,14 @@
         // Create pairs of fruits
         const createCardPairs = () => {
             const pairs = [...fruits, ...fruits];
-            return pairs.sort(() => Math.random() - 0.5);
+
+            // Fisher–Yates shuffle (unbiased)
+            for (let i = pairs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+            }
+
+            return pairs;
         };
         
         // Initialize Three.js scene
@@ -308,7 +355,8 @@
             scene.fog = new THREE.Fog(0x667eea, 10, 50);
             
             // Detectar si es móvil
-            const isMobile = window.innerWidth <= 768;
+            isMobileGlobal = window.innerWidth <= 768;
+            const isMobile = isMobileGlobal;
             
             // Camera setup - ajustado para móviles
             const aspect = window.innerWidth / window.innerHeight;
@@ -323,8 +371,11 @@
             
             // Renderer setup
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.shadowMap.enabled = true;
+            // Mejor soporte touch / pointer
+            renderer.domElement.style.touchAction = 'none';
             document.getElementById('canvas-container').appendChild(renderer.domElement);
             
             // Raycaster for click detection
@@ -335,17 +386,22 @@
             const ambientLight = new THREE.AmbientLight(0xffffff, isMobile ? 0.7 : 0.5);
             scene.add(ambientLight);
             
+            pointLights = [];
+
             const pointLight1 = new THREE.PointLight(0xe91e63, isMobile ? 1.5 : 2, 50);
             pointLight1.position.set(5, 5, 5);
             scene.add(pointLight1);
+            pointLights.push(pointLight1);
             
             const pointLight2 = new THREE.PointLight(0xffc107, isMobile ? 1.5 : 2, 50);
             pointLight2.position.set(-5, -5, 5);
             scene.add(pointLight2);
+            pointLights.push(pointLight2);
             
             const pointLight3 = new THREE.PointLight(0x00bcd4, isMobile ? 1.5 : 2, 50);
             pointLight3.position.set(0, 5, -5);
             scene.add(pointLight3);
+            pointLights.push(pointLight3);
             
             // Add particle background
             createParticles();
@@ -355,17 +411,19 @@
             
             // Event listeners
             window.addEventListener('resize', onWindowResize);
-            renderer.domElement.addEventListener('click', onCardClick);
-            renderer.domElement.addEventListener('touchend', onCardClick); // Para móviles
-            renderer.domElement.addEventListener('mousemove', onMouseMove);
-            renderer.domElement.addEventListener('touchmove', onTouchMove); // Para móviles
-            
+            renderer.domElement.addEventListener('pointerdown', onPointerDown, { passive: false });
+            renderer.domElement.addEventListener('pointermove', onPointerMove, { passive: true });
+
             // Hide loading
             document.getElementById('loading').style.display = 'none';
-            
-            // Start timer
-            startTimer();
-            
+
+            // Start timer AFTER entrance animation finishes (fair start)
+            const totalEntranceMs = (fruits.length * 2 - 1) * 50 + 800;
+            timerStarted = false;
+            setTimeout(() => {
+                if (!timerStarted) startTimer();
+            }, totalEntranceMs);
+
             // Start animation loop
             animate();
         }
@@ -373,7 +431,7 @@
         // Create particle background
         function createParticles() {
             const particleGeometry = new THREE.BufferGeometry();
-            const particleCount = 1000;
+            const particleCount = isMobileGlobal ? 600 : 1000;
             const positions = new Float32Array(particleCount * 3);
             const colors = new Float32Array(particleCount * 3);
             
@@ -403,6 +461,7 @@
             const particles = new THREE.Points(particleGeometry, particleMaterial);
             particles.name = 'particles';
             scene.add(particles);
+            particlesMesh = particles;
         }
         
         // Create game cards
@@ -410,7 +469,8 @@
             const shuffledFruits = createCardPairs();
             
             // Detectar si es móvil
-            const isMobile = window.innerWidth <= 768;
+            isMobileGlobal = window.innerWidth <= 768;
+            const isMobile = isMobileGlobal;
             
             // Layout ajustado según dispositivo
             const cols = isMobile ? 3 : 6; // 3 columnas en móvil, 6 en desktop
@@ -444,6 +504,9 @@
                 card.rotation.y = Math.PI;
                 animateCardEntrance(card, index);
             });
+
+            // Ensure responsive layout is applied
+            applyResponsiveLayout();
         }
         
         // Create a single card
@@ -460,9 +523,10 @@
             });
             
             // Tamaño de canvas y fuente ajustado para móviles
-            const canvasSize = isMobile ? 512 : 256; // Mayor resolución en móvil
-            const questionFontSize = isMobile ? 240 : 120;
-            const emojiFontSize = isMobile ? 360 : 180;
+            // Nota: 512 en móvil era costoso; bajar para reducir presión GPU/mem.
+            const canvasSize = isMobile ? 256 : 512;
+            const questionFontSize = isMobile ? 120 : 240;
+            const emojiFontSize = isMobile ? 180 : 360;
             
             // Front face (question mark)
             const frontCanvas = document.createElement('canvas');
@@ -531,69 +595,70 @@
         // Animate card entrance
         function animateCardEntrance(card, index) {
             const delay = index * 50;
-            setTimeout(() => {
+            const tId = setTimeout(() => {
                 const duration = 800;
                 const startTime = Date.now();
-                
+
                 function animate() {
                     const elapsed = Date.now() - startTime;
                     const progress = Math.min(elapsed / duration, 1);
                     const eased = 1 - Math.pow(1 - progress, 3); // Ease out cubic
-                    
+
                     card.scale.setScalar(eased);
                     card.rotation.y = Math.PI * (1 - eased);
-                    
+
                     if (progress < 1) {
-                        requestAnimationFrame(animate);
+                        const rafId = requestAnimationFrame(animate);
+                        entranceRafIds.push(rafId);
                     }
                 }
                 animate();
             }, delay);
+
+            entranceTimeouts.push(tId);
         }
         
-        // Handle card click
-        function onCardClick(event) {
+        // Pointer Events (single input path; avoids click+touch double-trigger)
+        function onPointerDown(event) {
             if (isProcessing) return;
-            
-            // Manejar tanto eventos de mouse como táctiles
-            let clientX, clientY;
-            
-            if (event.type === 'touchend' && event.changedTouches) {
-                event.preventDefault(); // Prevenir doble click en móviles
-                clientX = event.changedTouches[0].clientX;
-                clientY = event.changedTouches[0].clientY;
-            } else {
-                clientX = event.clientX;
-                clientY = event.clientY;
+
+            // Prevent synthetic mouse events after touch
+            if (event.pointerType !== 'mouse') {
+                event.preventDefault();
             }
-            
+
+            const clientX = event.clientX;
+            const clientY = event.clientY;
+
             mouse.x = (clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(clientY / window.innerHeight) * 2 + 1;
-            
+
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(cardMeshes, true);
-            
+
             if (intersects.length > 0) {
                 const clickedMesh = intersects[0].object;
                 const index = clickedMesh.userData.index;
                 flipCard(index);
             }
         }
-        
-        // Handle mouse move for hover effect
-        function onMouseMove(event) {
+
+        // Hover effect only for mouse (avoids expensive raycasting on touch)
+        function onPointerMove(event) {
+            if (event.pointerType !== 'mouse') return;
+
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-            
+
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(cardMeshes, true);
-            
+
             cardMeshes.forEach((card, index) => {
                 if (!cardData[index].flipped && !cardData[index].matched) {
                     card.position.z = 0;
                 }
             });
-            
+
             if (intersects.length > 0) {
                 const hoveredMesh = intersects[0].object;
                 const index = hoveredMesh.userData.index;
@@ -603,31 +668,43 @@
             }
         }
         
-        // Handle touch move for mobile
-        function onTouchMove(event) {
-            if (event.touches.length > 0) {
-                const touch = event.touches[0];
-                mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
-                mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+        function setStatus(text, ms = 1200) {
+            const el = document.getElementById('status');
+            if (!el) return;
+
+            el.textContent = text || '';
+            if (statusTimeoutId) clearTimeout(statusTimeoutId);
+            if (text && ms) {
+                statusTimeoutId = setTimeout(() => {
+                    el.textContent = '';
+                }, ms);
             }
         }
-        
+
         // Flip card
         function flipCard(index) {
             const card = cardData[index];
-            
+
             if (card.flipped || card.matched || flippedCards.length >= 2) {
                 return;
             }
-            
+
+            // Start timer on first interaction as a fallback (in case entrance timing drifts)
+            if (!timerStarted) startTimer();
+
             card.flipped = true;
             card.targetRotation = Math.PI;
             flippedCards.push(index);
-            
+
             if (flippedCards.length === 2) {
+                // Block immediately (avoid any edge-case interactions while waiting)
+                isProcessing = true;
+                setStatus('Comparando...', 900);
+
                 moves++;
                 document.getElementById('moves').textContent = moves;
-                setTimeout(checkMatch, 600);
+                const tId = setTimeout(checkMatch, 600);
+                matchTimeouts.push(tId);
             }
         }
         
@@ -637,7 +714,7 @@
             const [index1, index2] = flippedCards;
             const card1 = cardData[index1];
             const card2 = cardData[index2];
-            
+
             if (card1.fruit === card2.fruit) {
                 // Match!
                 card1.matched = true;
@@ -645,27 +722,34 @@
                 matchedPairs++;
                 score += 100;
                 document.getElementById('score').textContent = score;
-                
+
+                setStatus('¡Match! +100', 900);
+
                 // Celebration animation
                 celebrateMatch(card1.mesh, card2.mesh);
-                
-                if (matchedPairs === 9) {
-                    setTimeout(winGame, 1000);
+
+                if (matchedPairs === fruits.length) {
+                    const tId = setTimeout(winGame, 1000);
+                    matchTimeouts.push(tId);
                 }
             } else {
+                setStatus('No match', 900);
+
                 // No match - flip back
-                setTimeout(() => {
+                const tId = setTimeout(() => {
                     card1.flipped = false;
                     card2.flipped = false;
                     card1.targetRotation = 0;
                     card2.targetRotation = 0;
                 }, 1000);
+                matchTimeouts.push(tId);
             }
-            
+
             flippedCards = [];
-            setTimeout(() => {
+            const unlockId = setTimeout(() => {
                 isProcessing = false;
             }, 1000);
+            matchTimeouts.push(unlockId);
         }
         
         // Celebrate match animation
@@ -697,11 +781,61 @@
             document.getElementById('final-time').textContent = document.getElementById('timer').textContent;
             
             document.getElementById('win-modal').classList.add('active');
+            document.getElementById('modal-backdrop').classList.add('active');
             
             // Confetti effect
             createConfetti();
         }
         
+        function disposeObject3D(obj) {
+            if (!obj) return;
+
+            // Remove from scene first
+            if (obj.parent) obj.parent.remove(obj);
+
+            // Dispose geometry/material/textures
+            if (obj.traverse) {
+                obj.traverse((child) => {
+                    if (child.geometry) {
+                        child.geometry.dispose?.();
+                    }
+
+                    const material = child.material;
+                    if (material) {
+                        const materials = Array.isArray(material) ? material : [material];
+                        materials.forEach((m) => {
+                            if (!m) return;
+                            ['map', 'alphaMap', 'aoMap', 'bumpMap', 'displacementMap', 'emissiveMap', 'envMap', 'lightMap', 'metalnessMap', 'normalMap', 'roughnessMap'].forEach((k) => {
+                                const tex = m[k];
+                                if (tex && tex.dispose) tex.dispose();
+                            });
+                            m.dispose?.();
+                        });
+                    }
+                });
+            }
+        }
+
+        function clearPendingAsync() {
+            entranceTimeouts.forEach((t) => clearTimeout(t));
+            entranceTimeouts = [];
+            entranceRafIds.forEach((id) => cancelAnimationFrame(id));
+            entranceRafIds = [];
+
+            matchTimeouts.forEach((t) => clearTimeout(t));
+            matchTimeouts = [];
+
+            if (confettiRafId) {
+                cancelAnimationFrame(confettiRafId);
+                confettiRafId = null;
+            }
+
+            if (statusTimeoutId) {
+                clearTimeout(statusTimeoutId);
+                statusTimeoutId = null;
+            }
+        }
+
         // Create confetti
         function createConfetti() {
             const confettiCount = 200;
@@ -741,6 +875,7 @@
             const confetti = new THREE.Points(confettiGeometry, confettiMaterial);
             confetti.name = 'confetti';
             scene.add(confetti);
+            confettiMesh = confetti;
             
             // Animate confetti
             function animateConfetti() {
@@ -752,19 +887,24 @@
                     positions[i * 3 + 2] += velocities[i].z;
                     
                     if (positions[i * 3 + 1] < -10) {
-                        scene.remove(confetti);
+                        disposeObject3D(confetti);
+                        if (confettiMesh === confetti) confettiMesh = null;
+                        confettiRafId = null;
                         return;
                     }
                 }
                 
                 confetti.geometry.attributes.position.needsUpdate = true;
-                requestAnimationFrame(animateConfetti);
+                confettiRafId = requestAnimationFrame(animateConfetti);
             }
             animateConfetti();
         }
         
         // Start timer
         function startTimer() {
+            if (timerStarted) return;
+            timerStarted = true;
+
             startTime = Date.now();
             timerInterval = setInterval(() => {
                 const elapsed = Math.floor((Date.now() - startTime) / 1000);
@@ -777,13 +917,18 @@
         
         // Reset game
         function resetGame() {
-            // Remove all cards and particles
-            cardMeshes.forEach(card => scene.remove(card));
-            const particles = scene.getObjectByName('particles');
-            if (particles) scene.remove(particles);
-            const confetti = scene.getObjectByName('confetti');
-            if (confetti) scene.remove(confetti);
-            
+            clearPendingAsync();
+
+            // Remove + dispose all cards
+            cardMeshes.forEach(card => disposeObject3D(card));
+
+            // Remove + dispose particles/confetti (cached refs)
+            disposeObject3D(particlesMesh);
+            particlesMesh = null;
+
+            disposeObject3D(confettiMesh);
+            confettiMesh = null;
+
             // Reset variables
             cardMeshes = [];
             cardData = [];
@@ -792,35 +937,69 @@
             moves = 0;
             score = 0;
             isProcessing = false;
-            
+            timerStarted = false;
+
             // Reset UI
             document.getElementById('score').textContent = '0';
             document.getElementById('moves').textContent = '0';
             document.getElementById('timer').textContent = '0:00';
             document.getElementById('win-modal').classList.remove('active');
-            
+            document.getElementById('modal-backdrop').classList.remove('active');
+            setStatus('');
+
             // Clear timer
             if (timerInterval) clearInterval(timerInterval);
-            
+
             // Recreate game
             createParticles();
             createCards();
-            startTimer();
+
+            // Start timer AFTER entrance animation finishes (fair start)
+            const totalEntranceMs = (fruits.length * 2 - 1) * 50 + 800;
+            setTimeout(() => {
+                if (!timerStarted) startTimer();
+            }, totalEntranceMs);
         }
         
         // Window resize handler
+        function applyResponsiveLayout() {
+            const cols = isMobileGlobal ? 3 : 6;
+            const rows = isMobileGlobal ? 6 : 3;
+            const spacing = isMobileGlobal ? 2.0 : 2.5;
+
+            const startX = -(cols - 1) * spacing / 2;
+            const startY = (rows - 1) * spacing / 2;
+
+            cardMeshes.forEach((card, index) => {
+                const col = index % cols;
+                const row = Math.floor(index / cols);
+                const x = startX + col * spacing;
+                const y = startY - row * spacing;
+                card.position.x = x;
+                card.position.y = y;
+            });
+        }
+
+        // Window resize handler
         function onWindowResize() {
-            const isMobile = window.innerWidth <= 768;
-            
+            const prevIsMobile = isMobileGlobal;
+            isMobileGlobal = window.innerWidth <= 768;
+
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
             renderer.setSize(window.innerWidth, window.innerHeight);
-            
+
             // Ajustar posición de cámara según el dispositivo
-            if (isMobile) {
+            if (isMobileGlobal) {
                 camera.position.z = 32; // Mucho más lejos en móviles
             } else {
                 camera.position.z = 18; // Posición normal en desktop
+            }
+
+            // Re-flow de layout cuando cambia el breakpoint (orientación/resize)
+            if (prevIsMobile !== isMobileGlobal) {
+                applyResponsiveLayout();
             }
         }
         
@@ -830,10 +1009,9 @@
             
             const time = Date.now() * 0.001;
             
-            // Rotate particles
-            const particles = scene.getObjectByName('particles');
-            if (particles) {
-                particles.rotation.y = time * 0.05;
+            // Rotate particles (cached ref)
+            if (particlesMesh) {
+                particlesMesh.rotation.y = time * 0.05;
             }
             
             // Update card rotations and wiggle
@@ -848,9 +1026,8 @@
                 }
             });
             
-            // Animate lights
-            const lights = scene.children.filter(child => child instanceof THREE.PointLight);
-            lights.forEach((light, index) => {
+            // Animate lights (cached ref)
+            pointLights.forEach((light, index) => {
                 const radius = 10;
                 const speed = 0.5 + index * 0.2;
                 light.position.x = Math.cos(time * speed + index * 2) * radius;
