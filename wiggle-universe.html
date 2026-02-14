@@ -364,7 +364,7 @@
             
             // Posición de cámara ajustada según el dispositivo
             if (isMobile) {
-                camera.position.set(0, 0, 32); // Mucho más lejos en móviles
+                camera.position.set(0, 0, 24); // Más cerca en móviles para evitar mucho espacio en blanco
             } else {
                 camera.position.set(0, 0, 18); // Posición normal en desktop
             }
@@ -475,7 +475,7 @@
             // Layout ajustado según dispositivo
             const cols = isMobile ? 3 : 6; // 3 columnas en móvil, 6 en desktop
             const rows = isMobile ? 6 : 3; // 6 filas en móvil, 3 en desktop
-            const spacing = isMobile ? 2.0 : 2.5; // Menos espacio en móvil
+            const spacing = isMobile ? 2.6 : 2.5; // Más espacio en móvil para que llene mejor el viewport
             
             const startX = -(cols - 1) * spacing / 2;
             const startY = (rows - 1) * spacing / 2;
@@ -512,8 +512,8 @@
         // Create a single card
         function createCard(emoji, x, y, index, isMobile = false) {
             // Tamaño de carta ajustado para móviles - más pequeñas
-            const cardWidth = isMobile ? 1.8 : 2;
-            const cardHeight = isMobile ? 2.5 : 2.8;
+            const cardWidth = isMobile ? 2.2 : 2;
+            const cardHeight = isMobile ? 3.0 : 2.8;
             const geometry = new THREE.BoxGeometry(cardWidth, cardHeight, 0.1);
             
             // Create materials for each face
@@ -965,7 +965,7 @@
         function applyResponsiveLayout() {
             const cols = isMobileGlobal ? 3 : 6;
             const rows = isMobileGlobal ? 6 : 3;
-            const spacing = isMobileGlobal ? 2.0 : 2.5;
+            const spacing = isMobileGlobal ? 2.6 : 2.5;
 
             const startX = -(cols - 1) * spacing / 2;
             const startY = (rows - 1) * spacing / 2;
@@ -992,7 +992,7 @@
 
             // Ajustar posición de cámara según el dispositivo
             if (isMobileGlobal) {
-                camera.position.z = 32; // Mucho más lejos en móviles
+                camera.position.z = 24; // Más cerca en móviles
             } else {
                 camera.position.z = 18; // Posición normal en desktop
             }
