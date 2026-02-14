@@ -475,10 +475,13 @@
             // Layout ajustado según dispositivo
             const cols = isMobile ? 3 : 6; // 3 columnas en móvil, 6 en desktop
             const rows = isMobile ? 6 : 3; // 6 filas en móvil, 3 en desktop
-            const spacing = isMobile ? 2.6 : 2.5; // Más espacio en móvil para que llene mejor el viewport
+            const spacing = isMobile ? 2.35 : 2.5;
+
+            // Empuja el grid hacia arriba para no chocar con los botones (móvil)
+            const yOffset = isMobile ? 1.9 : 0;
             
             const startX = -(cols - 1) * spacing / 2;
-            const startY = (rows - 1) * spacing / 2;
+            const startY = (rows - 1) * spacing / 2 + yOffset;
             
             shuffledFruits.forEach((fruit, index) => {
                 const col = index % cols;
@@ -564,8 +567,8 @@
             backCtx.fillStyle = backGradient;
             backCtx.fillRect(0, 0, canvasSize, canvasSize);
             
-            // Emoji con mejor renderizado
-            backCtx.font = `bold ${emojiFontSize}px Arial`;
+            // Emoji con mejor renderizado (mejor soporte iOS/Android)
+            backCtx.font = `${emojiFontSize}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", Arial, sans-serif`;
             backCtx.textAlign = 'center';
             backCtx.textBaseline = 'middle';
             backCtx.fillText(emoji, canvasSize / 2, canvasSize / 2);
@@ -965,10 +968,12 @@
         function applyResponsiveLayout() {
             const cols = isMobileGlobal ? 3 : 6;
             const rows = isMobileGlobal ? 6 : 3;
-            const spacing = isMobileGlobal ? 2.6 : 2.5;
+            const spacing = isMobileGlobal ? 2.35 : 2.5;
+
+            const yOffset = isMobileGlobal ? 1.9 : 0;
 
             const startX = -(cols - 1) * spacing / 2;
-            const startY = (rows - 1) * spacing / 2;
+            const startY = (rows - 1) * spacing / 2 + yOffset;
 
             cardMeshes.forEach((card, index) => {
                 const col = index % cols;
